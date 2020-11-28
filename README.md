@@ -52,6 +52,11 @@ git pull --recurse-submodules
 # Build the debian package
 ./bin/build_deb.sh
 
-# Release the debian package to the LaunchPad PPA
+# Install the built package locally during testing
+apt install ./deb_dist/archivebox_0.4.24-1_all.deb
+# or:
+dpkg -i ./deb_dist/archivebox_0.4.24-1_all.deb
+
+# Push the Apt/Debian package to the LaunchPad PPA
 ./bin/release.sh
 ```
