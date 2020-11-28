@@ -1,0 +1,48 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Format: 1.8
+Date: Mon, 23 Nov 2020 18:20:06 -0500
+Source: archivebox
+Architecture: source
+Version: 0.4.24-1
+Distribution: focal
+Urgency: low
+Maintainer: Nick Sweeting <git@nicksweeting.com>
+Changed-By: Nick Sweeting <git@nicksweeting.com>
+Changes:
+ archivebox (0.4.24-1) focal; urgency=low
+ .
+   * source package automatically created by stdeb 0.10.0
+Checksums-Sha1:
+ cbe651efc5495af8117f5c91a278a09729102394 1829 archivebox_0.4.24-1.dsc
+ 1f959d443fddfff05cb0da5c2c1331c3c615e239 360702 archivebox_0.4.24.orig.tar.gz
+ a42cf90e23f30ca80cd188e9fb8b6562038454a8 1536 archivebox_0.4.24-1.debian.tar.xz
+ cf6fb93e26f366c28bd6e9e30c13a412a4e24591 7076 archivebox_0.4.24-1_source.buildinfo
+Checksums-Sha256:
+ 9ab980cde65d72f59afc85daeff10162cef085796051baeb1eb39e60d8ed942e 1829 archivebox_0.4.24-1.dsc
+ 91885fc4350a4ee5fccf7b7d32c56dadff773cceea86fe2fc29368354e0e6533 360702 archivebox_0.4.24.orig.tar.gz
+ 44ba133eb18a58fa3d84e28d42eec330838793a8c5d47ac3a5bc9d37af7fc72b 1536 archivebox_0.4.24-1.debian.tar.xz
+ 36d73aab11bfcf7ab295f948bed4914a627510e9465cf6f86b5f842c749357eb 7076 archivebox_0.4.24-1_source.buildinfo
+Files:
+ 8e1aeca697d4af59be56064029bdd341 1829 python optional archivebox_0.4.24-1.dsc
+ 838abde6615b242f97369b712a7c2d0c 360702 python optional archivebox_0.4.24.orig.tar.gz
+ fbfc3d2752a45a89a4540c72ce133809 1536 python optional archivebox_0.4.24-1.debian.tar.xz
+ 71d0b16dae8a80b2b38bad90238adc74 7076 python optional archivebox_0.4.24-1_source.buildinfo
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEfVaV07YYhyZHhh1Rw4E3p8FnWYgFAl+8Q94ACgkQw4E3p8Fn
+WYiU5BAAwcsO12cYF7u9Ts8/VfLtKF+1C17c7oCLMuysz7bssao5xa5gNsQYYa8X
+ENJBiVlquxrmBZndX4qsyvJplGdXOTrkIBWrDBS8vH4AGqIyIzL3qzCUSD/0JGRz
+AmMX0ykBvyXl/ovMU54pnHiCbaoJCAPlKDozdeKfZPipLDuM37FiTzOLTMogZO09
+HV//cd0A//JX0jJ0GcNblafzRvjMyrSHfd/Gq7MFnX2t9kgFkMqzmrMfqlsb9p/f
+HdU+92+gOgCgS+6CyUfVtbj611krTAIarGE8G/HCVSrIcaecLCz8dXxS3J7RwVUd
+vYrmZUTiDBILBCc7doAJRXAc+MuMvyPDCeAAz1ZegKasxdMYn2qXSWCjIh+MQcaZ
+hGywE+3GK80y843uoQr8kZq5jXBap3RCYxc3rgRMoxSvoX1eTTUH02C7Jen1+2br
+9Wx9Q/r4VyF/oeV3BnBqwXMKOo+VZF0DwK9YDOJgii7oisbbz1hlETLKi91EEClr
+Vc3xPARMmMmoysjl1AXVvWDgLe3aP+PdJreT82qCYw2olIDXb9RFwDkfob63evuJ
+Crl0ALlAxB+6Ej8nekDtRidPWO6WMmUc6Hq2dCnF1SUofGyUwiJuPzHvHUnRJnwB
+omU54fUP6MFK+zC7h6YDAWERKM0RDKX/LLLYF/jH9fHAZXeLHdU=
+=wrmp
+-----END PGP SIGNATURE-----
