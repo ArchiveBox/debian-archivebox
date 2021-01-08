@@ -49,6 +49,7 @@ To build this package, make sure you are in the ArchiveBox main repo first.
 apt install python3 python3-dev python3-pip python3-venv python3-all \
             dh-python debhelper devscripts dput software-properties-common \
             python3-distutils python3-setuptools python3-wheel python3-stdeb
+python3 -m pip install setuptools stdeb wheel
 
 cd ArchiveBox/
 git pull --recurse-submodules
@@ -64,3 +65,21 @@ dpkg -i ./deb_dist/archivebox_0.4.24-1_all.deb
 # Push the Apt/Debian package to the LaunchPad PPA
 ./bin/release.sh
 ```
+
+
+To setup your GPG keys for signing the debian package these commands may be helpful:
+```bash
+gpg --refresh-keys
+gpg --list-keys
+gpg --export ${ID} > public.key
+gpg --export-secret-key ${ID} > private.key
+
+gpg --import public.key
+gpg --allow-secret-key-import private.key
+
+# test that it works
+debsign -k YOURGPGKEYID deb_dist/archivebox_*_source.changes
+gpg --verify YOURGPGKEYID deb_dist/archivebox_*_source.changes
+```
+
+A full guide for doing Python packaging on Debian with `stdeb` is available here: https://docs.monadical.com/s/BkF2EoKqw
