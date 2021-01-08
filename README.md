@@ -75,7 +75,7 @@ gpg --export ${ID} > public.key
 gpg --export-secret-key ${ID} > private.key
 
 gpg --import public.key
-gpg --allow-secret-key-import private.key
+gpg --import --allow-secret-key-import private.key
 
 # test that it works
 debsign -k YOURGPGKEYID deb_dist/archivebox_*_source.changes
