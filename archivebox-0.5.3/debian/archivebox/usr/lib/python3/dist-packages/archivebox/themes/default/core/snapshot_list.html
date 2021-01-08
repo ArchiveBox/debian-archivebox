@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block body %}
+    <br>
+    <form action="{% url 'public-index' %}" method="get">
+        <input name="q" type="text" placeholder="Search...">
+        <button type="submit">Search</button>
+        <button onclick="location.href='{% url 'public-index' %}'" type="button">
+            Reload Index</button>
+    </form>
+    <table id="table-bookmarks">
+        <thead>
+            <tr>
+                <th style="width: 100px;">Bookmarked</th>
+                <th style="width: 26vw;">Snapshot ({{object_list|length}})</th>
+                <th style="width: 140px">Files</th>
+                <th style="width: 16vw;whitespace:nowrap;overflow-x:hidden;">Original URL</th>
+            </tr>
+        </thead>
+            <tbody>
+                {% for link in object_list %}
+                    {% include 'main_index_row.html' with link=link  %}
+                {% endfor %}
+            </tbody>
+        </table>
+        <center>
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="{% url 'public-index' %}?page=1">&laquo; first</a>
+                    <a href="{% url 'public-index' %}?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+        
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+        
+                {% if page_obj.has_next %}
+                    <a href="{% url 'public-index' %}?page={{ page_obj.next_page_number }}">next </a>
+                    <a href="{% url 'public-index' %}?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+    
+            {% if page_obj.has_next %}
+                <a href="{% url 'public-index' %}?page={{ page_obj.next_page_number }}">next </a>
+                <a href="{% url 'public-index' %}?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+        <br>
+    </center>
+{% endblock %}

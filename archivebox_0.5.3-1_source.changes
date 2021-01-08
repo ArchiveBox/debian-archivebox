@@ -1,0 +1,48 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Format: 1.8
+Date: Fri, 08 Jan 2021 08:14:46 -0500
+Source: archivebox
+Architecture: source
+Version: 0.5.3-1
+Distribution: focal
+Urgency: low
+Maintainer: Nick Sweeting <git@nicksweeting.com>
+Changed-By: Nick Sweeting <git@nicksweeting.com>
+Changes:
+ archivebox (0.5.3-1) focal; urgency=low
+ .
+   * source package automatically created by stdeb 0.10.0
+Checksums-Sha1:
+ ebc9cb5985ca3b9749af86cf3f79a0250888c651 1822 archivebox_0.5.3-1.dsc
+ a350c46e25ac3d3b30fab0efbd0226e5c0fe28a3 258683 archivebox_0.5.3.orig.tar.gz
+ d1952afed11f3a21e5e3794779edcd3ff6207df5 1556 archivebox_0.5.3-1.debian.tar.xz
+ 47aea2f95e98f3984a78a743a6b133baef352efc 7133 archivebox_0.5.3-1_source.buildinfo
+Checksums-Sha256:
+ fd34ba74d913d39b90b9e487a504ed094c7371272c41e902c818091619d58ca0 1822 archivebox_0.5.3-1.dsc
+ 50b2c976296734d6e6b54975826c2ada9cd13f2c15dd585a2a94553530cf1541 258683 archivebox_0.5.3.orig.tar.gz
+ 9bdd60a9601e9dc7768789a4bb865b24b0cb0583887ff4f1f4106fdcae8d8cd7 1556 archivebox_0.5.3-1.debian.tar.xz
+ d4b6e02dcc5a15ee1ef94353c243cdb57849e459e47af9e2523d891cb00c43e6 7133 archivebox_0.5.3-1_source.buildinfo
+Files:
+ a8c145339737010beb02a81925cf942a 1822 python optional archivebox_0.5.3-1.dsc
+ a69bba33bee581722227d9fecdb78f75 258683 python optional archivebox_0.5.3.orig.tar.gz
+ 77de8c5ee4b0158d7d35b162e1e04417 1556 python optional archivebox_0.5.3-1.debian.tar.xz
+ 67962d47cc8564035390506015844779 7133 python optional archivebox_0.5.3-1_source.buildinfo
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEfVaV07YYhyZHhh1Rw4E3p8FnWYgFAl/4Wu8ACgkQw4E3p8Fn
+WYidQg//ZMUbaHnc3grDV0A+RcK6qqZ3apap6Tp01clcmc3QoMdALtBur2aMW1VV
+SJ2XjP+onoTJtzj5JP8UZGmvqzeJTyk/GOollQ7Wunv52E0/7S4UJfckLkm+YtKb
+ni1mBnEiNasjTy6OmMhe1mX7ArkxnmJKHb7Taz1KEVZrKjQDrlk9Ct9FaRSO604s
+uJJn0oHAfCqzyahWLiqifmvHJ9ECM+b6qMJ/Z8Gs/GQ3Z5SvGIel3T8nu4D+R/1O
+yW4osGPdEsEqm9/L8HRsDzVpOpBnn4/7t11TBca6wZMOMxDjI0FKgR86EcrOb/IV
+mkKSHN35yTxFoeq3EjlVdwDif0A3K1xExTKluZH2bk/KUXt8bW06h5d2IbByQZes
+fvq8hIQ0VRgU3hroZl32d0wk+/tG5YDlfjNTgvwk4zjsUwXisds02ICPqPNd06da
+QdwyBIYenNcmCcd4+Gka0phzzOBGxTP4q5UqkY01l16otdW+tQEc8xL4mdQYlOsr
+ac7GUkhzhO6Mo1tf3hDxe4bpQ/YRqD4WeZPCIoCKGW1PUFxS2Epx5fjG78fMLxMO
+b0SNokBvURle95MaqBAaJBOFp+HTiFcpI+dPvBoLRHaKUrBfwUH/eIl5QaqwxQ7h
+sNFLObmoXj2TVo4SAaDvYTCBioDUbbRXzDDlpnRFWU7yXvqnmNI=
+=VV8m
+-----END PGP SIGNATURE-----

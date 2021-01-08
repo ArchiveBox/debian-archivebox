@@ -1,0 +1,15 @@
+
+[dev]
+bottle
+django-stubs
+flake8
+ipdb
+mypy
+pytest
+recommonmark
+setuptools
+sphinx
+sphinx-rtd-theme
+stdeb
+twine
+wheel
