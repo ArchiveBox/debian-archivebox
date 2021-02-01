@@ -1,0 +1,48 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Format: 1.8
+Date: Mon, 01 Feb 2021 04:20:16 -0500
+Source: archivebox
+Architecture: source
+Version: 0.5.4-1
+Distribution: focal
+Urgency: low
+Maintainer: Nick Sweeting <git@nicksweeting.com>
+Changed-By: Nick Sweeting <git@nicksweeting.com>
+Changes:
+ archivebox (0.5.4-1) focal; urgency=low
+ .
+   * source package automatically created by stdeb 0.8.5
+Checksums-Sha1:
+ 1bf27d9e99ae7c72eb826210bda40986d4be2b19 1822 archivebox_0.5.4-1.dsc
+ 788ad3a21336719f703ef2fa5ab0244c81785d58 324221 archivebox_0.5.4.orig.tar.gz
+ 1315583cafd4aa50a43bcc0d90729a1493c90980 1492 archivebox_0.5.4-1.debian.tar.xz
+ 30368f713f02ba57d050c82e52a95b3d360778a4 7148 archivebox_0.5.4-1_source.buildinfo
+Checksums-Sha256:
+ b4744513bd82c5cfb32092bde251192932c0c86996ff317b792b824a38c74c85 1822 archivebox_0.5.4-1.dsc
+ 870707999ed3b804d77c7faa58e6a7d1a60a532310e257d159df43cf32b4a6d3 324221 archivebox_0.5.4.orig.tar.gz
+ e2f35d37d59d1b27ec4aa5ac6e90e733fe2c6d135d7b046c4403aa136c4b63d2 1492 archivebox_0.5.4-1.debian.tar.xz
+ 73a8595f848ec8989e20329e20d4933857337fe5173cffc71fc6a64d6634c47e 7148 archivebox_0.5.4-1_source.buildinfo
+Files:
+ 9cf176817e5e13743b8cd5b21d2c559c 1822 python optional archivebox_0.5.4-1.dsc
+ fe88b873381d0ac5e8b73f0a040ba639 324221 python optional archivebox_0.5.4.orig.tar.gz
+ e48107fc9262c818cf3bf4b51f0c9e7c 1492 python optional archivebox_0.5.4-1.debian.tar.xz
+ 2d303521705414ed7de07b2ee6120173 7148 python optional archivebox_0.5.4-1_source.buildinfo
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEfVaV07YYhyZHhh1Rw4E3p8FnWYgFAmAXx98ACgkQw4E3p8Fn
+WYhUuBAAqq97462F1pKu5OvfUy85a5e2HSsOIxX59s71zj7kZvXCZCjFXWQZwSit
+PW3QcikPOeu8fRYMur5d1xE8PBPxV2c37jDVIn14zkZdxdIm2mqm7CLEwBYwnQN1
+bOCqsxLC+lWpEREPsLKdy0yFCkD7jI7spYZAiV02QEEcF49AN0d5ruoqmhoyuOhp
+5vrKCACKkyFBM0slnaW3z+YBXxy5NqdpQCG9IJChx7Q75Mr2NwqHDSjtclNSPsE3
+4GgF4ZwPOKUCV/OKfbHPND75tD1nh+PU/sVD/9TzhP5+CAd79s9mO3Dc6IHZhm/9
+Yr4f/lijTEZzJvTNqH3i0QYW431RdhC6DM+oDaohrAtXrD4yOnBq3EK6Cywg+Dy8
+N+KT5OU8vw+16zcpOUZvpuQqLrXS5FZYxtBw27gxToCW7hT+r8lpsemVFhjUWRNY
+2Fk+sM+iBHqHrktyqUIHegpn2VTXjYq4KXLzqf+TdXu3zy514TEEit6g7n88/F27
+N6wJA5RdVWx54K5KKBKSy2cx9kPa9inSPfZrbH9xt9YodzmZWmOYeKfz5Ecv+QVb
+xS3MdbXNptfJGdeD7U8sqxF58knyuaDFUGnCkfXshmLN1a4rh85tc2qvqvojHXO4
+ShDnJJikZ4Fw3QB4e7zojePfw0872vL1LlNyEzRTUq9a/mB8RRs=
+=to69
+-----END PGP SIGNATURE-----

@@ -1,0 +1,25 @@
+Format: 1.8
+Date: Mon, 01 Feb 2021 04:20:16 -0500
+Source: archivebox
+Binary: archivebox
+Architecture: all
+Version: 0.5.4-1
+Distribution: focal
+Urgency: low
+Maintainer: Nick Sweeting <git@nicksweeting.com>
+Changed-By: Nick Sweeting <git@nicksweeting.com>
+Description:
+ archivebox - The self-hosted internet archive.
+Changes:
+ archivebox (0.5.4-1) focal; urgency=low
+ .
+   * source package automatically created by stdeb 0.8.5
+Checksums-Sha1:
+ a3c613adf4f68aaa74a82faa9b8a3d98b108a4fd 241512 archivebox_0.5.4-1_all.deb
+ 1fc797c7686da9f858b449c2a3b9f1ade3e6de45 6280 archivebox_0.5.4-1_amd64.buildinfo
+Checksums-Sha256:
+ 2fc3f0cab8b061efbb107c9d4b08eab7ce3b68147186425f598ebd7823c60da1 241512 archivebox_0.5.4-1_all.deb
+ e812f8afa40778f48e1d920722749a8b9f572551aa94f68c811d381992bcff78 6280 archivebox_0.5.4-1_amd64.buildinfo
+Files:
+ 78fa3c8b9c3e74e9e56b99477a85e4a5 241512 python optional archivebox_0.5.4-1_all.deb
+ f3bbb48ed9a3de35eb89653b86b64c14 6280 python optional archivebox_0.5.4-1_amd64.buildinfo
