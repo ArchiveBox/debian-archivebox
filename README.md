@@ -47,7 +47,7 @@ To build this package, make sure you are in the ArchiveBox main repo first.
 
 ```bash
 apt upgrade -qq
-apt install -y python3 python3-dev python3-pip python3-venv python3-all \
+apt install -y python3 python3-dev python3-pip python3-venv python3-all python-all \
             dh-python debhelper devscripts dput software-properties-common \
             python3-distutils python3-setuptools python3-wheel python3-stdeb jq
 python3 -m pip install setuptools stdeb wheel
