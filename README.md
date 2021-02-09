@@ -12,7 +12,9 @@ https://launchpad.net/~archivebox/+archive/ubuntu/archivebox/+packages
 sudo add-apt-repository -u ppa:archivebox/archivebox
 
 # on other systems you should add the repo to your sources manually:
-echo "deb http://ppa.launchpad.net/archivebox/archivebox/ubuntu focal main" >> /etc/apt/sources.list
+echo "deb http://ppa.launchpad.net/archivebox/archivebox/ubuntu focal main" > /etc/apt/sources.list.d/archivebox.list
+echo "deb-src http://ppa.launchpad.net/archivebox/archivebox/ubuntu focal main" >> /etc/apt/sources.list.d/archivebox.list
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys C258F79DCC02E369
 sudo apt update
 ```
 
