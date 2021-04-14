@@ -1,0 +1,28 @@
+Format: 1.8
+Date: Wed, 14 Apr 2021 04:28:11 -0400
+Source: archivebox
+Architecture: source
+Version: 0.5.6-1
+Distribution: focal
+Urgency: low
+Maintainer: Nick Sweeting <git@nicksweeting.com>
+Changed-By: Nick Sweeting <git@nicksweeting.com>
+Changes:
+ archivebox (0.5.6-1) focal; urgency=low
+ .
+   * source package automatically created by stdeb 0.8.5
+Checksums-Sha1:
+ 34edc594f9d83710383b8314eae68de07da229da 939 archivebox_0.5.6-1.dsc
+ 4f07c5711617caa876549c6b32c5d7de397448c1 336952 archivebox_0.5.6.orig.tar.gz
+ ad1733582e335c131deddf97d5de5e6eb5334385 1540 archivebox_0.5.6-1.debian.tar.xz
+ 16f9aa18de039c2973407c228d88717e93227df6 6308 archivebox_0.5.6-1_source.buildinfo
+Checksums-Sha256:
+ 04322a06cce2d5ca3be9da6d99effc87234f7f704b0c039f376cd3f04acea282 939 archivebox_0.5.6-1.dsc
+ 8b736e7341f6a5a5a9c3c1389ec01fa081039ccab7d6199c4f148c6e5caa30ef 336952 archivebox_0.5.6.orig.tar.gz
+ 847bdf5d851c0c0bff61d5b43cb58c6ee5bcd6f7f9c5ce582689f2cae18316ab 1540 archivebox_0.5.6-1.debian.tar.xz
+ 6e6a1c398185bdc954094417bad637a0cb19aee3d3b75adb872fa5e846ebdca3 6308 archivebox_0.5.6-1_source.buildinfo
+Files:
+ e87914b57c79ac7eeb58a0d5114ac9fe 939 python optional archivebox_0.5.6-1.dsc
+ 6d52af917df6711db4a56e023c2e7c6b 336952 python optional archivebox_0.5.6.orig.tar.gz
+ ed3b34fd915cf8ad0a5d14ca010cdd42 1540 python optional archivebox_0.5.6-1.debian.tar.xz
+ 16b456356fb9c5d323d02a0dcb66ce44 6308 python optional archivebox_0.5.6-1_source.buildinfo

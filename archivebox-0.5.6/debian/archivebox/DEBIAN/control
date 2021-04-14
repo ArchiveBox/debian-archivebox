@@ -1,0 +1,30 @@
+Package: archivebox
+Version: 0.5.6-1
+Architecture: all
+Maintainer: Nick Sweeting <git@nicksweeting.com>
+Installed-Size: 1388
+Depends: python3-atomicwrites, python3-croniter, python3-crontab, python3-dateparser, python3-django, python3-django-extensions, python3-ipython, python3-mypy-extensions, python3-requests, python3-w3lib, python3:any, youtube-dl, nodejs, chromium-browser, wget, curl, git, ffmpeg, python3-django-jsonfield, ripgrep
+Section: python
+Priority: optional
+Homepage: https://github.com/ArchiveBox/ArchiveBox
+Description: The self-hosted internet archive.
+ <div align="center">
+ <em><img src="https://i.imgur.com/5B48E3N.png" height="90px"></em>
+ <h1>ArchiveBox<br/><sub>Open-source self-hosted web archiving.</sub></h1>
+ .
+ ▶️ <a href="https://github.com/ArchiveBox/ArchiveBox/wiki/Quickstart">Quickstart</a> |
+ <a href="https://archivebox.zervice.io/">Demo</a> |
+ <a href="https://github.com/ArchiveBox/ArchiveBox">Github</a> |
+ <a href="https://github.com/ArchiveBox/ArchiveBox/wiki">Documentation</a> |
+ <a href="#background--motivation">Info & Motivation</a> |
+ <a href="https://github.com/ArchiveBox/ArchiveBox/wiki/Web-Archiving-Community">Community</a> |
+ <a href="https://github.com/ArchiveBox/ArchiveBox/wiki/Roadmap">Roadmap</a>
+ .
+ <pre>
+ "Your own personal internet archive" (网站存档 / 爬虫)
+ </pre>
+ .
+ <!--<a href="http://webchat.freenode.net?channels=ArchiveBox&uio=d4"><img src="https://img.shields.io/badge/Community_chat-IRC-%2328A745.svg"/></a>-->
+ .
+ <a href="https://github.com/ArchiveBox/ArchiveBox/blob/master/LICENSE"><img src="https://img.shields.io/badge/Open_source-MIT-green.svg?logo=git&logoColor=green"/></a>
+ <a href="https://github.com/ArchiveBox/ArchiveBox"><img src="https://img.shields.io/github/stars/ArchiveBox/ArchiveBox.svg?logo=github&label=Stars&logoColor=blue"/></a>
