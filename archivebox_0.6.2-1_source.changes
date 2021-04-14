@@ -1,0 +1,48 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Format: 1.8
+Date: Wed, 14 Apr 2021 04:19:20 -0400
+Source: archivebox
+Architecture: source
+Version: 0.6.2-1
+Distribution: focal
+Urgency: low
+Maintainer: Nick Sweeting <git@nicksweeting.com>
+Changed-By: Nick Sweeting <git@nicksweeting.com>
+Changes:
+ archivebox (0.6.2-1) focal; urgency=low
+ .
+   * source package automatically created by stdeb 0.8.5
+Checksums-Sha1:
+ df6e2578616179e64b3bdbe914043988b740126b 1822 archivebox_0.6.2-1.dsc
+ 5aa3dc19ff7a73522727dd0db4dc93f6463511f4 412913 archivebox_0.6.2.orig.tar.gz
+ 4d0ce94a9d84036f1cb04e9c4daf978416416826 1520 archivebox_0.6.2-1.debian.tar.xz
+ 1a5e4a51b43677499b945f52070970c0470fbed1 7194 archivebox_0.6.2-1_source.buildinfo
+Checksums-Sha256:
+ 9532216c3b18b26a12f6d9ccb7aa578da83945d4d8a6c68eec537cb856b57d3f 1822 archivebox_0.6.2-1.dsc
+ 237da2ce44126dcefb0be7bb8cf37bf9fe91d8f7f6a6d3eacd45809781d96d62 412913 archivebox_0.6.2.orig.tar.gz
+ c1a2983d23056d8fc106e95de9c36d9c53a82b437d9908cf367315ed3b1a1c03 1520 archivebox_0.6.2-1.debian.tar.xz
+ dcae38ca46777013260e53ed95cdbcc4c68e274155e49b54fb3fb8898da36881 7194 archivebox_0.6.2-1_source.buildinfo
+Files:
+ 071d55aeb8c60f52f2f9d583e91aa005 1822 python optional archivebox_0.6.2-1.dsc
+ 3bbfc29cb52a67b2a696635af7a6fbf7 412913 python optional archivebox_0.6.2.orig.tar.gz
+ 1530a87b5b702d8302f78c4411bd04a6 1520 python optional archivebox_0.6.2-1.debian.tar.xz
+ 289ab5bcdc725ef5c3d1c99e2152b7d1 7194 python optional archivebox_0.6.2-1_source.buildinfo
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEvC0hsNhOFsQ3MAuGUkI/vtFYb0UFAmB2prMACgkQUkI/vtFY
+b0UunRAAyhXhxDTk6JyztLVMMFbWnPaS2/IlYxPOraAx9VyACJsGSAIsf/qA1Jkb
+RJ8yQoCKTQul8NqIbs80mCV5mFrhTdwnknG3ZmLnXrVNSPwonKX/gHpcuHatUvSj
+V3Y/PSC5TvmZdIuNVRluam4HRzrYyiW3dj5JpeUmdrNvWgwKmiydu/VecFTtkVsc
+b/SYKqy3F2APrryWclK7ldllTRN8CpqzHFS1zKB/94t+U9TizaaY96cuid0u13yi
+ps8fePrlXfqVeRvB1a0CRjeTLdyxpQG3NoDujaCrLx37KJm7kIuzAs8Oap0vx2DW
+iDzvmPnHnEKbm5gsIa/Yu68HeCfD8cB0/1cp6uiblJFaIP56sfIgLgEFNcMRShEq
+ZLYqmH6j76xOOs+9c/9PYJ203CaCo33fJKK+1w6wTMLcKWx0KuD6kggXobKhAn3C
+EQLU4JwI8BgO4VDBjcinri+kKp2XYUKtKEMHEWgq/FFg8iD+KSc0m5RovvIF30sV
+agbkUNr4W9JRvmBOLdJ5dszGwyoKsKWgodWg5W3c6UlDejpfPiKTyVYeGIivu6cF
+DVGHcvRIzjg+Y90dQTlwiccvih7fhh7kwXKyLgGwcRhYTYCyHldXTG3UjXHQ0NxM
+gZrf7hlh1In4wPPy+0svP9VjmKue5zoo7sV27YFkLBBBMJyG+Qs=
+=O1WX
+-----END PGP SIGNATURE-----

@@ -1,0 +1,6 @@
+__pycache__/
+*.py[co]
+
+*.egg-info/
+dist/
+.tox/
