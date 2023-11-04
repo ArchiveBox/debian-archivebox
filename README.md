@@ -52,7 +52,7 @@ apt upgrade -qq
 apt install -y python3 python3-dev python3-pip python3-venv python3-all python-all \
             dh-python debhelper devscripts dput software-properties-common \
             python3-distutils python3-setuptools python3-wheel python3-stdeb jq fakeroot
-python3 -m pip install setuptools stdeb wheel
+python3 -m pip install --upgrade pip setuptools pdm
 
 cd ArchiveBox/
 git pull --recurse-submodules
@@ -60,10 +60,12 @@ git pull --recurse-submodules
 # Build the debian package
 ./bin/build_deb.sh
 
+docker run -v $PWD:/data -it ubuntu:22.04 /bin/bash -c "dpkg-deb --build archivebox; apt-get update -qq; env DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt install -y ./archivebox.deb"
+
 # Install the built package locally during testing
-apt install ./deb_dist/archivebox_0.4.24-1_all.deb
+apt install ./archivebox.deb
 # or:
-dpkg -i ./deb_dist/archivebox_0.4.24-1_all.deb
+dpkg -i ./archivebox.deb
 
 # Push the Apt/Debian package to the LaunchPad PPA
 ./bin/release.sh
@@ -83,6 +85,8 @@ gpg --import --allow-secret-key-import private.key
 # test that it works
 debsign -k YOURGPGKEYID deb_dist/archivebox_*_source.changes
 gpg --verify YOURGPGKEYID deb_dist/archivebox_*_source.changes
+
+docker run -v $PWD:/data ubuntu:latest /bin/bash -c "apt-get update -qq; apt-get install -qq -y devscripts gpg; cd /data; gpg --import public.key; gpg --import private.key; dpkg-source -b archivebox-0.7.1; cd archivebox-0.7.1; dpkg-genchanges --build=source,all -sa > ../archivebox_0.7.1-1_source.changes; cd ..; debsign -k 52423FBED1586F45 ./archivebox_0.7.1-1_source.changes"
 ```
 
 A full guide for doing Python packaging on Debian with `stdeb` is available here: https://docs.monadical.com/s/BkF2EoKqw
