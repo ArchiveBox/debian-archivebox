@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+export TZ=Etc/UTC
+export DEBIAN_FRONTEND=noninteractive
+
+id -u archivebox &>/dev/null || useradd --system --create-home --groups audio,video --user-group archivebox
+AB_UID="$(id -u archivebox)" || exit 32
+mkdir -p /home/archivebox/data/logs
+
+echo "[+] Created /home/archivebox user with UID=$AB_UID"
+
+chown "$AB_UID" /home/archivebox/data /home/archivebox/data/* 
+cd /home/archivebox/data
+
+export PLAYWRIGHT_BROWSERS_PATH=/home/archivebox/.cache/ms-playwright
+
+sudo -u archivebox pip3 install --user archivebox playwright
+echo
+sudo -u archivebox /home/archivebox/.local/bin/archivebox setup | cat
+echo
+ln -f -s /home/archivebox/.local/bin/archivebox /usr/local/bin/archivebox

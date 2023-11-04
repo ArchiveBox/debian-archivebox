@@ -1,0 +1,11 @@
+Source: archivebox
+Priority: optional
+Maintainer: Nick Sweeting
+Homepage: https://archivebox.io
+
+Package: archivebox
+Version: 0.7.1
+Maintainer: Nick Sweeting
+Architecture: all
+Description: Self-hosted internet archiving
+Depends: sudo, zlib1g-dev, libnss3-dev, libatomic1, python3-all, python3-pip, python3-setuptools, python3-minimal, python3-croniter, python3-crontab, python3-dateparser, python3-django, python3-django-extensions, python3-ldap, python3-msgpack, python3-mutagen, python3-regex, python3-pycryptodome, procps, python3-django-jsonfield, python3-mypy-extensions, python3-requests, python3-w3lib, nodejs, npm, wget, curl, git, ffmpeg, yt-dlp, ripgrep
