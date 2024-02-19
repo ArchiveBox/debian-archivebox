@@ -21,19 +21,26 @@ sudo apt update
 **Install it:**
 ```bash
 sudo apt install archivebox
+
+# get the latest version of archivebox its pip depenencies from PyPI
+pip install --upgrade --ignore-installed archivebox yt-dlp playwright
+playwright install --with-deps chromium
 ```
 
 **Try it out:**
 ```bash
 archivebox version
 
-mkdir data && cd data
-archivebox init
+mkdir -p ~/archivebox/data && cd ~/archivebox/data
+archivebox init --setup
 archivebox add 'https://example.com'
+archivebox help
 ```
 ---
 
-Tested on Ubuntu 20.04, should work on all Debian/Ubuntu based systems.
+Tested on Ubuntu 22.04, should work on all Debian/Ubuntu based systems.
+
+https://github.com/ArchiveBox/ArchiveBox/wiki/Install#option-c-bare-metal-setup
 
 ---
 
