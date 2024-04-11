@@ -1,6 +1,13 @@
 # debian-archivebox
 
-The official `apt`/`deb` package for [ArchiveBox](https://github.com/ArchiveBox/ArchiveBox), the self-hosted internet archiving solution.
+## ⚠️ We're [looking for volunteers](https://zulip.archivebox.io/#narrow/stream/158-development/topic/packaging.20for.20debian) to help continue packaging ArchiveBox for `apt`!
+
+---
+
+This is the official `apt`/`deb` package for [ArchiveBox](https://github.com/ArchiveBox/ArchiveBox), the self-hosted internet archiving solution.  
+
+> [!WARNING]
+> The ArchiveBox `apt` package is several versions behind our [`pip` distribution](https://github.com/ArchiveBox/pip-archivebox), as Debian strongly encourages building everything from source and ArchiveBox depends on a number of binary packages that make this difficult (e.g. [`playwright`](https://github.com/buildout/buildout/issues/578)). We've followed [this process](https://docs.monadical.com/s/BkF2EoKqw) so far, but we're [looking for contributors](https://zulip.archivebox.io/#narrow/stream/158-development/topic/packaging.20for.20debian) to help improve it.
 
 https://launchpad.net/~archivebox/+archive/ubuntu/archivebox/+packages
 
