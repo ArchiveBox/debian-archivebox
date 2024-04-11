@@ -4,10 +4,12 @@
 
 ---
 
-This is the official `apt`/`deb` package for [ArchiveBox](https://github.com/ArchiveBox/ArchiveBox), the self-hosted internet archiving solution.  
+This is the official `apt`/`dpkg` package for [ArchiveBox](https://github.com/ArchiveBox/ArchiveBox), the self-hosted internet archiving solution.  
 
 > [!WARNING]
-> The ArchiveBox `apt` package is several versions behind our [`pip` distribution](https://github.com/ArchiveBox/pip-archivebox), as Debian strongly encourages building everything from source and ArchiveBox depends on a number of binary packages that make this difficult (e.g. [`playwright`](https://github.com/buildout/buildout/issues/578)). We've followed [this process](https://docs.monadical.com/s/BkF2EoKqw) so far, but we're [looking for contributors](https://zulip.archivebox.io/#narrow/stream/158-development/topic/packaging.20for.20debian) to help improve it.
+> This ArchiveBox `apt` package is several versions behind our main [`pip` distribution](https://github.com/ArchiveBox/pip-archivebox), as Debian strongly encourages building everything from source and ArchiveBox depends on a number of binary packages that make this difficult (e.g. [`playwright`](https://github.com/buildout/buildout/issues/578)). We've followed [this process](https://docs.monadical.com/s/BkF2EoKqw) so far, but we're [looking for contributors](https://zulip.archivebox.io/#narrow/stream/158-development/topic/packaging.20for.20debian) to help improve it.
+
+Main ArchiveBox Ubuntu/Debian install documentation: https://github.com/ArchiveBox/ArchiveBox/wiki/Install#option-c-bare-metal-setup
 
 https://launchpad.net/~archivebox/+archive/ubuntu/archivebox/+packages
 
