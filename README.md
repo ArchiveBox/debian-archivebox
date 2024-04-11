@@ -1,6 +1,6 @@
 # debian-archivebox
 
-## ⚠️ We're [looking for volunteers](https://zulip.archivebox.io/#narrow/stream/158-development/topic/packaging.20for.20debian) to help continue packaging ArchiveBox for `apt`!
+## ⚠️ We're [looking for volunteers](https://zulip.archivebox.io/#narrow/stream/158-development/topic/packaging.20for.20debian) to help package ArchiveBox for `apt`!
 
 ---
 
