@@ -48,7 +48,7 @@ setuptools.setup(
         "wheel",
     ],
     install_requires=[
-        "requests==2.24.0",
+        "requests==2.32.0",
         "atomicwrites==1.4.0",
         "mypy-extensions==0.4.3",
         "django==3.0.8",
