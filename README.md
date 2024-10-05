@@ -1,6 +1,3 @@
-# debian-archivebox
----
-
 > [!IMPORTANT]
 > ## ✨ ArchiveBox no longer needs to be `apt`-installed
 >
