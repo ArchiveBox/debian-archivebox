@@ -10,14 +10,15 @@
 > pip install archivebox   # just use pip to get archivebox
 > archivebox install       # then finish installing dependencies
 > ```
-> (if you see `permission denied`, run `sudo archivebox install` instead)
+> If you see `permission denied`, some dependencies need sudo to install.  
+> Run `sudo archivebox install`, or install the indicated packages manually.
 
 
 ---
 
 ## Historical Context
 
-We moved away from `apt` because ArchiveBox needs to be able to update it's dependencies more frequently than the Debian packaging ecosystem allows, and providing support for broken debian installs using pinned older versions was taking up too much of our time.  
+We moved away from `apt` because ArchiveBox needs to be able to update its dependencies more frequently than the Debian packaging ecosystem allows, and providing workarounds and support for broken debian installs using pinned older versions was taking up too much of our time.  
 
 Now we do something similar to [`playwright`](https://playwright.dev/python/docs/browsers#install-browsers) where the base package is provided via `pip`,
 and then you call `archivebox install` to finish installing any system dependencies that are still needed. ArchiveBox uses our own new [`pydantic-pkgr`](https://github.com/ArchiveBox/pydantic-pkgr) library (*check it out!*) to manage
@@ -30,7 +31,7 @@ https://github.com/ArchiveBox/ArchiveBox/wiki/Install#option-c-bare-metal-setup
 
 <details><summary>Or expand to see old README for this repo (only useful for historical context)</summary>
 
-## Quickstart
+## ~~Quickstart~~
 
 ~~**Add the repo to your sources:**~~
 ```bash
@@ -64,13 +65,11 @@ archivebox help
 ```
 ---
 
-Tested on Ubuntu 22.04, should work on all Debian/Ubuntu based systems.
-
-https://github.com/ArchiveBox/ArchiveBox/wiki/Install#option-c-bare-metal-setup
+~~Tested on Ubuntu 22.04, should work on all Debian/Ubuntu based systems.~~
 
 ---
 
-## Development
+## ~~Development~~
 
 ~~The debian package is built using `stdeb`: https://github.com/astraw/stdeb and hosted on Launchpad: https://launchpad.net/~archivebox.~~
 
@@ -123,7 +122,5 @@ docker run -v $PWD:/data ubuntu:latest /bin/bash -c "apt-get update -qq; apt-get
 
 A full guide for doing Python packaging on Debian with `stdeb` is available here: https://docs.monadical.com/s/BkF2EoKqw
 
-
-TODO: switch to FPM? https://fpm.readthedocs.io/en/latest/intro.html
 
 </details>
