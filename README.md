@@ -23,7 +23,9 @@ Now we do something similar to [`playwright`](https://playwright.dev/python/docs
 and then you call `archivebox install` to finish installing any system dependencies that are still needed. ArchiveBox uses our own new [`pydantic-pkgr`](https://github.com/ArchiveBox/pydantic-pkgr) library (*check it out!*) to manage
 it's runtime dependencies, which in turn relies on the excellent [`pyinfra`](https://pyinfra.com/) library (and/or [`ansible`](https://ansible.readthedocs.io/)) to do the actual installing.
 
-**See here for alternate ArchiveBox Ubuntu/Debian install documentation:**  
+### Prefer doing it the old way?
+
+**See here for manual install instructions for all of ArchiveBox's dependencies on Ubuntu/Debian:**  
 https://github.com/ArchiveBox/ArchiveBox/wiki/Install#option-c-bare-metal-setup
 
 <details><summary>Or expand to see old README for this repo (only useful for historical context)</summary>
