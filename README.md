@@ -1,20 +1,39 @@
 # debian-archivebox
+---
 
-## ⚠️ We're [looking for volunteers](https://zulip.archivebox.io/#narrow/stream/158-development/topic/packaging.20for.20debian) to help package ArchiveBox for `apt`!
+> [!IMPORTANT]
+> ## ✨ ArchiveBox no longer needs to be `apt`-installed
+>
+> ✅ ArchiveBox still fully supports Ubuntu / Debian, don't worry!  
+> 📦 Just install it using `pip` (or `pipx`) instead now:
+> ```bash
+> mkdir -p ~/archivebox/data
+> cd ~/archivebox/data     # (for example, can be anywhere)
+>
+> pip install archivebox   # just use pip to get archivebox
+> archivebox install       # then finish installing dependencies
+> ```
+> (if you see `permission denied`, run `sudo archivebox install` instead)
+
 
 ---
 
-This is the official `apt`/`dpkg` package for [ArchiveBox](https://github.com/ArchiveBox/ArchiveBox), the self-hosted internet archiving solution.  
+## Historical Context
 
-> [!WARNING]
-> This ArchiveBox `apt` package is several versions behind our main [`pip` distribution](https://github.com/ArchiveBox/pip-archivebox), as Debian strongly encourages building everything from source and ArchiveBox depends on a number of binary packages that make this difficult (e.g. [`playwright`](https://github.com/buildout/buildout/issues/578)). We've followed [this process](https://docs.monadical.com/s/BkF2EoKqw) so far, but we're [looking for contributors](https://zulip.archivebox.io/#narrow/stream/158-development/topic/packaging.20for.20debian) to help improve it.
+We moved away from `apt` because ArchiveBox needs to be able to update it's dependencies more frequently than the Debian packaging ecosystem allows, and providing support for broken debian installs using pinned older versions was taking up too much of our time.  
 
-**See here for the main ArchiveBox Ubuntu/Debian install documentation:**  
+Now we do something similar to [`playwright`](https://playwright.dev/python/docs/browsers#install-browsers) where the base package is provided via `pip`,
+and then you call `archivebox install` to finish installing any system dependencies that are still needed. ArchiveBox uses our own new [`pydantic-pkgr`](https://github.com/ArchiveBox/pydantic-pkgr) library (*check it out!*) to manage
+it's runtime dependencies, which in turn relies on the excellent [`pyinfra`](https://pyinfra.com/) library (and/or [`ansible`](https://ansible.readthedocs.io/)) to do the actual installing.
+
+**See here for alternate ArchiveBox Ubuntu/Debian install documentation:**  
 https://github.com/ArchiveBox/ArchiveBox/wiki/Install#option-c-bare-metal-setup
+
+<details><summary>Or expand to see old README for this repo (only useful for historical context)</summary>
 
 ## Quickstart
 
-**Add the repo to your sources:**
+~~**Add the repo to your sources:**~~
 ```bash
 # on Ubuntu 20.04 and up you can do:
 sudo add-apt-repository -u ppa:archivebox/archivebox
@@ -26,7 +45,7 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv-keys C258F79DCC02E369
 sudo apt update
 ```
 
-**Install it:**
+~~**Install it:**~~
 ```bash
 sudo apt install archivebox
 
@@ -35,7 +54,7 @@ pip install --upgrade --ignore-installed archivebox yt-dlp playwright
 playwright install --with-deps chromium
 ```
 
-**Try it out:**
+~~**Try it out:**~~
 ```bash
 archivebox version
 
@@ -54,13 +73,13 @@ https://github.com/ArchiveBox/ArchiveBox/wiki/Install#option-c-bare-metal-setup
 
 ## Development
 
-The debian package is built using `stdeb`: https://github.com/astraw/stdeb and hosted on Launchpad: https://launchpad.net/~archivebox.
+~~The debian package is built using `stdeb`: https://github.com/astraw/stdeb and hosted on Launchpad: https://launchpad.net/~archivebox.~~
 
-https://launchpad.net/~archivebox/+archive/ubuntu/archivebox/+packages
+~~https://launchpad.net/~archivebox/+archive/ubuntu/archivebox/+packages~~
 
-The config file / package definition is here: [`ArchiveBox/stdeb.cfg`](https://github.com/ArchiveBox/ArchiveBox/blob/master/stdeb.cfg).
+~~The config file / package definition is here: [`ArchiveBox/stdeb.cfg`](https://github.com/ArchiveBox/ArchiveBox/blob/master/stdeb.cfg).~~
 
-To build this package, make sure you are in the ArchiveBox main repo first.
+~~To build this package, make sure you are in the ArchiveBox main repo first.~~
 
 ```bash
 apt upgrade -qq
@@ -86,8 +105,7 @@ dpkg -i ./archivebox.deb
 ./bin/release.sh
 ```
 
-
-To setup your GPG keys for signing the debian package these commands may be helpful:
+~~To setup your GPG keys for signing the debian package these commands may be helpful:~~
 ```bash
 gpg --refresh-keys
 gpg --list-keys
@@ -108,3 +126,5 @@ A full guide for doing Python packaging on Debian with `stdeb` is available here
 
 
 TODO: switch to FPM? https://fpm.readthedocs.io/en/latest/intro.html
+
+</details>
