@@ -1,1 +1,4 @@
 *.key
+build/
+dist/
+*.deb

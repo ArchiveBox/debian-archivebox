@@ -1,0 +1,128 @@
+name: Build Debian package
+
+on:
+  workflow_dispatch:
+    inputs:
+      archivebox_ref:
+        description: "ArchiveBox ref to package"
+        required: false
+        default: "dev"
+  repository_dispatch:
+    types: [archivebox-dev-updated]
+  schedule:
+    - cron: "*/30 * * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: debian-archivebox-${{ github.event.inputs.archivebox_ref || github.event.client_payload.ref || 'dev' }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Resolve ArchiveBox ref
+        run: |
+          REF="${{ github.event.inputs.archivebox_ref || github.event.client_payload.ref || 'dev' }}"
+          echo "ARCHIVEBOX_REF=$REF" >> "$GITHUB_ENV"
+
+      - name: Install build tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y dpkg-dev
+          NFPM_VERSION="2.45.1"
+          curl -fsSL "https://github.com/goreleaser/nfpm/releases/download/v${NFPM_VERSION}/nfpm_${NFPM_VERSION}_Linux_x86_64.tar.gz" \
+            | sudo tar -xz -C /usr/local/bin nfpm
+          nfpm --version
+
+      - name: Build .deb
+        run: ./bin/build_deb.sh
+
+      - name: Load build metadata
+        run: cat dist/build.env >> "$GITHUB_ENV"
+
+      - name: Skip already-published scheduled build
+        id: published
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="dev-${ARCHIVEBOX_UPSTREAM_SHORT_SHA}"
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          if [[ "$GITHUB_EVENT_NAME" != "workflow_dispatch" ]] && gh release view "$TAG" >/dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+            echo "[i] Release $TAG already exists."
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Verify package metadata
+        if: steps.published.outputs.exists != 'true'
+        run: |
+          DEB_FILE="$(ls dist/*.deb | head -1)"
+          dpkg-deb --info "$DEB_FILE"
+          dpkg-deb --contents "$DEB_FILE"
+          dpkg-deb --field "$DEB_FILE"
+
+      - name: Smoke install package
+        if: steps.published.outputs.exists != 'true'
+        run: |
+          DEB_FILE="$(ls dist/*.deb | head -1)"
+          sudo apt-get install -y "$DEB_FILE"
+          archivebox version
+
+      - name: Upload artifact
+        if: steps.published.outputs.exists != 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: archivebox-${{ env.ARCHIVEBOX_DEB_VERSION }}.deb
+          path: dist/*.deb
+
+      - name: Publish GitHub release
+        if: steps.published.outputs.exists != 'true' && github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="${{ steps.published.outputs.tag }}"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" dist/*.deb dist/build.env --clobber
+          else
+            gh release create "$TAG" dist/*.deb dist/build.env \
+              --title "ArchiveBox dev ${ARCHIVEBOX_UPSTREAM_SHORT_SHA}" \
+              --notes "ArchiveBox ${ARCHIVEBOX_REF} ${ARCHIVEBOX_UPSTREAM_SHA}" \
+              --prerelease
+          fi
+
+      - name: Publish apt repository
+        if: steps.published.outputs.exists != 'true' && github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          PAGES_DIR="$(mktemp -d)"
+          if git clone --depth 1 --branch gh-pages "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "$PAGES_DIR"; then
+            true
+          else
+            rm -rf "$PAGES_DIR"
+            mkdir -p "$PAGES_DIR"
+            git -C "$PAGES_DIR" init
+            git -C "$PAGES_DIR" checkout -B gh-pages
+            git -C "$PAGES_DIR" remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          fi
+
+          ./bin/update_apt_repo.sh "$PAGES_DIR" dist/*.deb
+
+          git -C "$PAGES_DIR" config user.name "github-actions[bot]"
+          git -C "$PAGES_DIR" config user.email "github-actions[bot]@users.noreply.github.com"
+          git -C "$PAGES_DIR" add -A
+          if git -C "$PAGES_DIR" diff --cached --quiet; then
+            echo "[i] Apt repository is already current."
+          else
+            git -C "$PAGES_DIR" commit -m "Update ArchiveBox deb for ${ARCHIVEBOX_UPSTREAM_SHORT_SHA}"
+            git -C "$PAGES_DIR" push origin HEAD:gh-pages
+          fi

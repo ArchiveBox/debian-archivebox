@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -Eeuo pipefail
+
+ARCHIVEBOX_VENV="${ARCHIVEBOX_VENV:-/opt/archivebox/venv}"
+ARCHIVEBOX_UV_BIN="${ARCHIVEBOX_UV_BIN:-/opt/archivebox/uv/bin}"
+
+if [[ ! -x "$ARCHIVEBOX_VENV/bin/archivebox" ]]; then
+    echo "Error: ArchiveBox is not installed in $ARCHIVEBOX_VENV" >&2
+    echo "Try running: sudo /opt/archivebox/install.sh" >&2
+    exit 1
+fi
+
+export PATH="$ARCHIVEBOX_VENV/bin:$ARCHIVEBOX_UV_BIN:$PATH"
+exec "$ARCHIVEBOX_VENV/bin/archivebox" "$@"

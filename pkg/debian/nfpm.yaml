@@ -1,0 +1,58 @@
+name: archivebox
+arch: "${DEB_ARCH}"
+platform: linux
+version: "${DEB_VERSION}"
+version_schema: none
+maintainer: "ArchiveBox <debian@archivebox.io>"
+description: |
+  Self-hosted internet archiving solution.
+  This third-party package is a thin apt wrapper around the normal Python
+  install flow. It installs uv, uv-managed Python 3.13, and ArchiveBox into
+  /opt/archivebox/venv. ArchiveBox runtime/plugin dependencies are handled by
+  `archivebox install`.
+vendor: "ArchiveBox"
+homepage: "https://archivebox.io"
+license: "MIT"
+section: "web"
+priority: "optional"
+
+depends:
+  - ca-certificates
+  - curl
+
+recommends:
+  - git
+  - wget
+
+contents:
+  - src: pkg/debian/archivebox
+    dst: /usr/bin/archivebox
+    file_info:
+      mode: 0755
+
+  - src: pkg/debian/install.sh
+    dst: /opt/archivebox/install.sh
+    file_info:
+      mode: 0755
+
+  - src: build/package.env
+    dst: /opt/archivebox/package.env
+    file_info:
+      mode: 0644
+
+  - src: pkg/debian/archivebox.service
+    dst: /usr/lib/systemd/system/archivebox.service
+    file_info:
+      mode: 0644
+
+  - dst: /var/lib/archivebox
+    type: dir
+    file_info:
+      mode: 0755
+
+scripts:
+  postinstall: pkg/debian/scripts/postinstall.sh
+  preremove: pkg/debian/scripts/preremove.sh
+
+deb:
+  compression: xz
