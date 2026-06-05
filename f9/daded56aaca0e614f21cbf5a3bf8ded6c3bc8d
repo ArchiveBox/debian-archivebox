@@ -1,0 +1,19 @@
+.github/workflows/build.yml
+  s_02a3d148722916::t_ca1f64babd18bc 77
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.3",
+  "base_commit_sha": "f9daded56aaca0e614f21cbf5a3bf8ded6c3bc8d",
+  "prompts": {},
+  "sessions": {
+    "s_02a3d148722916": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019e9187-0c96-7de0-b9e0-4506eec815e2",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Nick Sweeting <git@sweeting.me>"
+    }
+  }
+}
