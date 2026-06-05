@@ -74,7 +74,7 @@ jobs:
         if: steps.published.outputs.exists != 'true'
         run: |
           DEB_FILE="$(ls dist/*.deb | head -1)"
-          sudo apt-get install -y "$DEB_FILE"
+          sudo apt-get install -y "./$DEB_FILE"
           archivebox version
 
       - name: Upload artifact
