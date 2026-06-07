@@ -79,15 +79,7 @@ jobs:
           sudo apt-get install -y "./$DEB_FILE"
           archivebox version
 
-          sudo archivebox version
-          sudo bash -lc '
-            set -Eeuo pipefail
-            cd /var/lib/archivebox
-            archivebox init
-            timeout 30m archivebox install
-          '
-
-          mkdir -p /tmp/archivebox-ci-fixture /tmp/archivebox-ci-data
+          mkdir -p /tmp/archivebox-ci-fixture "$HOME/archivebox"
           tee /tmp/archivebox-ci-fixture/index.html >/dev/null <<'HTML'
           <!doctype html>
           <html>
@@ -120,14 +112,23 @@ jobs:
           done
 
           (
-            cd /tmp/archivebox-ci-data
+            mkdir "$HOME/archivebox/data" && cd "$HOME/archivebox/data"
             archivebox init
-            timeout 30m archivebox install
+            sudo timeout 30m archivebox install
+
+            test -w .
+            test -w archive
+            test -w logs
+            test -w sources
+            test -w "$HOME/.config/abx/lib"
+            test -z "$(find . "$HOME/.config/abx" -user root -print -quit)"
+
             timeout 10m archivebox add "http://127.0.0.1:18080/"
             archivebox status
 
             test -s index.sqlite3
             test -d archive
+            test -w tmp
 
             find archive -mindepth 2 -type f -print | tee /tmp/archivebox-ci-output-files.txt
             test "$(wc -l < /tmp/archivebox-ci-output-files.txt)" -gt 0

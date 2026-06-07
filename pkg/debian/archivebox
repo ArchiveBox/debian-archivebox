@@ -29,15 +29,50 @@ ensure_archivebox_state_dirs() {
     chmod 0700 "$ARCHIVEBOX_CONFIG_DIR" "$ARCHIVEBOX_RUNTIME_DIR"
 }
 
+user_home_for_uid() {
+    local uid="$1"
+    getent passwd "$uid" | cut -d: -f6
+}
+
+user_name_for_uid() {
+    local uid="$1"
+    getent passwd "$uid" | cut -d: -f1
+}
+
+set_root_runtime_for_cwd_owner() {
+    local data_uid data_gid data_home data_user runtime_dir
+
+    data_uid="$(stat -c '%u' .)"
+    data_gid="$(stat -c '%g' .)"
+    data_home="$(user_home_for_uid "$data_uid")"
+    data_user="$(user_name_for_uid "$data_uid")"
+
+    [[ -n "$data_home" ]] || data_home="$ARCHIVEBOX_STATE_DIR"
+    [[ -n "$data_user" ]] || data_user="$ARCHIVEBOX_USER"
+
+    runtime_dir="${XDG_RUNTIME_DIR:-/tmp/archivebox-runtime-$data_uid}"
+    if [[ "$runtime_dir" == /run/user/0* || "$runtime_dir" == /root* ]]; then
+        runtime_dir="/tmp/archivebox-runtime-$data_uid"
+    fi
+
+    mkdir -p "$data_home/.config" "$runtime_dir"
+    chown "$data_uid:$data_gid" "$data_home/.config" "$runtime_dir"
+    chmod 0700 "$runtime_dir"
+
+    export HOME="$data_home"
+    export LOGNAME="$data_user"
+    export USER="$data_user"
+    export XDG_CONFIG_HOME="$data_home/.config"
+    export XDG_RUNTIME_DIR="$runtime_dir"
+}
+
 CURRENT_USER="$(id -un 2>/dev/null || true)"
 
 if [[ "${EUID:-$(id -u)}" == "0" ]]; then
     ensure_archivebox_system_user
     ensure_archivebox_state_dirs
 
-    export HOME="$ARCHIVEBOX_STATE_DIR"
-    export XDG_CONFIG_HOME="$ARCHIVEBOX_CONFIG_DIR"
-    export XDG_RUNTIME_DIR="$ARCHIVEBOX_RUNTIME_DIR"
+    set_root_runtime_for_cwd_owner
 elif [[ "$CURRENT_USER" == "$ARCHIVEBOX_USER" ]]; then
     mkdir -p "$ARCHIVEBOX_STATE_DIR" "$ARCHIVEBOX_CONFIG_DIR" "$ARCHIVEBOX_RUNTIME_DIR" 2>/dev/null || true
 

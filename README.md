@@ -25,23 +25,16 @@ sudo apt install archivebox
 Then initialize an archive:
 
 ```bash
-mkdir -p ~/archivebox/data
-cd ~/archivebox/data
-archivebox init --install
-```
-
-For the package-managed service collection, use `/var/lib/archivebox`:
-
-```bash
-cd /var/lib/archivebox
-sudo archivebox init --install
-sudo systemctl start archivebox
+mkdir ~/archivebox/data && cd ~/archivebox/data
+archivebox init
+sudo archivebox install
+archivebox add 'https://example.com'
 ```
 
 The package creates the `archivebox` system user and the state/config/runtime
-directories needed for root and systemd usage. Regular users can keep archives
-anywhere they own; `archivebox install` will use sudo when system packages are
-needed.
+directories needed for systemd usage. Regular users can keep archives anywhere
+they own; `sudo archivebox install` installs runtime dependencies without
+leaving the collection owned by root.
 
 The unsigned apt repo is the minimally viable install path. If signing is added
 later, users can switch from `[trusted=yes]` to a normal `signed-by=` keyring.
