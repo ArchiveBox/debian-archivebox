@@ -7,8 +7,11 @@ if ! id -u archivebox >/dev/null 2>&1; then
     echo "[+] Created archivebox system user"
 fi
 
-mkdir -p /var/lib/archivebox
+mkdir -p /var/lib/archivebox/.config /var/lib/archivebox/.runtime
 chown archivebox:archivebox /var/lib/archivebox
+chown -R archivebox:archivebox /var/lib/archivebox/.config /var/lib/archivebox/.runtime
+chmod 0755 /var/lib/archivebox
+chmod 0700 /var/lib/archivebox/.config /var/lib/archivebox/.runtime
 
 /opt/archivebox/install.sh
 

@@ -30,6 +30,19 @@ cd ~/archivebox/data
 archivebox init --install
 ```
 
+For the package-managed service collection, use `/var/lib/archivebox`:
+
+```bash
+cd /var/lib/archivebox
+sudo archivebox init --install
+sudo systemctl start archivebox
+```
+
+The package creates the `archivebox` system user and the state/config/runtime
+directories needed for root and systemd usage. Regular users can keep archives
+anywhere they own; `archivebox install` will use sudo when system packages are
+needed.
+
 The unsigned apt repo is the minimally viable install path. If signing is added
 later, users can switch from `[trusted=yes]` to a normal `signed-by=` keyring.
 
@@ -65,9 +78,10 @@ The workflow publishes:
 
 Before publishing, CI verifies the built package on an Ubuntu GitHub Actions
 runner by installing the `.deb` with `apt`, running the installed
-`/usr/bin/archivebox`, running a full `archivebox install`, archiving a local
-fixture page, and asserting that `index.sqlite3` plus real files under
-`archive/` are written to disk.
+`/usr/bin/archivebox` as both root and a normal passwordless-sudo user, running
+full `archivebox install` flows for both, archiving a local fixture page as the
+normal user, and asserting that `index.sqlite3` plus real files under `archive/`
+are written to disk.
 
 A push webhook or upstream workflow can trigger an immediate rebuild with:
 

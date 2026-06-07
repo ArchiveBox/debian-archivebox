@@ -79,21 +79,16 @@ jobs:
           sudo apt-get install -y "./$DEB_FILE"
           archivebox version
 
-          sudo mkdir -p \
-            /tmp/archivebox-ci-fixture \
-            /tmp/archivebox-ci-data \
-            /tmp/archivebox-ci-runtime-root \
-            /tmp/archivebox-ci-runtime-archivebox
-          sudo chown root:root /tmp/archivebox-ci-runtime-root
-          sudo chmod 700 /tmp/archivebox-ci-runtime-root
-          sudo chown archivebox:archivebox \
-            /tmp/archivebox-ci-fixture \
-            /tmp/archivebox-ci-data \
-            /tmp/archivebox-ci-runtime-archivebox
-          sudo chmod 700 /tmp/archivebox-ci-runtime-archivebox
-          sudo mkdir -p /var/lib/archivebox/.config
-          sudo chown -R archivebox:archivebox /var/lib/archivebox
-          sudo tee /tmp/archivebox-ci-fixture/index.html >/dev/null <<'HTML'
+          sudo archivebox version
+          sudo bash -lc '
+            set -Eeuo pipefail
+            cd /var/lib/archivebox
+            archivebox init
+            timeout 30m archivebox install
+          '
+
+          mkdir -p /tmp/archivebox-ci-fixture /tmp/archivebox-ci-data
+          tee /tmp/archivebox-ci-fixture/index.html >/dev/null <<'HTML'
           <!doctype html>
           <html>
             <head>
@@ -124,33 +119,10 @@ jobs:
             sleep 1
           done
 
-          sudo -u archivebox env \
-            HOME=/var/lib/archivebox \
-            XDG_CONFIG_HOME=/var/lib/archivebox/.config \
-            XDG_RUNTIME_DIR=/tmp/archivebox-ci-runtime-archivebox \
-            bash -lc '
-            set -Eeuo pipefail
-            cd /tmp/archivebox-ci-data
-            archivebox init
-          '
-
           (
             cd /tmp/archivebox-ci-data
-            sudo env \
-              HOME=/var/lib/archivebox \
-              XDG_CONFIG_HOME=/var/lib/archivebox/.config \
-              XDG_RUNTIME_DIR=/tmp/archivebox-ci-runtime-archivebox \
-              timeout 30m archivebox install
-            sudo chown -R archivebox:archivebox /tmp/archivebox-ci-data
-          )
-
-          sudo -u archivebox env \
-            HOME=/var/lib/archivebox \
-            XDG_CONFIG_HOME=/var/lib/archivebox/.config \
-            XDG_RUNTIME_DIR=/tmp/archivebox-ci-runtime-archivebox \
-            bash -lc '
-            set -Eeuo pipefail
-            cd /tmp/archivebox-ci-data
+            archivebox init
+            timeout 30m archivebox install
             timeout 10m archivebox add "http://127.0.0.1:18080/"
             archivebox status
 
@@ -160,7 +132,7 @@ jobs:
             find archive -mindepth 2 -type f -print | tee /tmp/archivebox-ci-output-files.txt
             test "$(wc -l < /tmp/archivebox-ci-output-files.txt)" -gt 0
             grep -R -I "ArchiveBox Debian CI Fixture" archive
-          '
+          )
 
       - name: Upload artifact
         if: steps.published.outputs.exists != 'true'
