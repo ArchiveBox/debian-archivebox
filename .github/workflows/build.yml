@@ -137,7 +137,7 @@ jobs:
             sudo env \
               HOME=/root \
               XDG_CONFIG_HOME=/root/.config \
-              XDG_RUNTIME_DIR=/tmp/archivebox-ci-runtime-root \
+              XDG_RUNTIME_DIR=/tmp/archivebox-ci-runtime-archivebox \
               timeout 30m archivebox install
             sudo chown -R archivebox:archivebox /tmp/archivebox-ci-data
           )
