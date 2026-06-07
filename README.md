@@ -11,7 +11,7 @@ the normal Python install flow:
 2. `postinstall` reuses a suitable host `uv` when one is already installed, or
    installs `uv` into `/opt/archivebox/uv` as a fallback.
 3. `uv` resolves Python 3.13 from the host or its normal managed-Python
-   location.
+   location for the `archivebox` system user.
 4. `uv pip install` installs ArchiveBox into `/opt/archivebox/venv`.
 5. Runtime extractor/plugin dependencies remain managed by `archivebox install`.
 
