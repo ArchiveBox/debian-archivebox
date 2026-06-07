@@ -25,7 +25,7 @@ sudo apt install archivebox
 Then initialize an archive:
 
 ```bash
-mkdir ~/archivebox/data && cd ~/archivebox/data
+mkdir -p ~/archivebox/data && cd ~/archivebox/data
 archivebox init
 sudo archivebox install
 archivebox add 'https://example.com'

@@ -112,7 +112,7 @@ jobs:
           done
 
           (
-            mkdir "$HOME/archivebox/data" && cd "$HOME/archivebox/data"
+            mkdir -p "$HOME/archivebox/data" && cd "$HOME/archivebox/data"
             archivebox init
             sudo timeout 30m archivebox install
 
