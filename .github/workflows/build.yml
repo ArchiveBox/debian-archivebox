@@ -70,12 +70,73 @@ jobs:
           dpkg-deb --contents "$DEB_FILE"
           dpkg-deb --field "$DEB_FILE"
 
-      - name: Smoke install package
+      - name: Integration test installed package
         if: steps.published.outputs.exists != 'true'
         run: |
+          set -Eeuo pipefail
+
           DEB_FILE="$(ls dist/*.deb | head -1)"
           sudo apt-get install -y "./$DEB_FILE"
           archivebox version
+
+          sudo mkdir -p /tmp/archivebox-ci-fixture /tmp/archivebox-ci-data
+          sudo tee /tmp/archivebox-ci-fixture/index.html >/dev/null <<'HTML'
+          <!doctype html>
+          <html>
+            <head>
+              <meta charset="utf-8">
+              <title>ArchiveBox Debian CI Fixture</title>
+            </head>
+            <body>
+              <main>
+                <h1>ArchiveBox Debian CI Fixture</h1>
+                <p>This page must be archived by the installed Debian package.</p>
+              </main>
+            </body>
+          </html>
+          HTML
+          sudo chown -R archivebox:archivebox /tmp/archivebox-ci-fixture /tmp/archivebox-ci-data
+
+          python3 -m http.server 18080 --bind 127.0.0.1 --directory /tmp/archivebox-ci-fixture &
+          SERVER_PID="$!"
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+
+          for attempt in $(seq 1 30); do
+            if curl -fsS http://127.0.0.1:18080/ >/dev/null; then
+              break
+            fi
+            if [ "$attempt" -eq 30 ]; then
+              echo "[X] Fixture web server did not start." >&2
+              exit 1
+            fi
+            sleep 1
+          done
+
+          sudo -H -u archivebox bash -lc '
+            set -Eeuo pipefail
+            cd /tmp/archivebox-ci-data
+            archivebox init
+          '
+
+          (
+            cd /tmp/archivebox-ci-data
+            sudo timeout 30m archivebox install
+            sudo chown -R archivebox:archivebox /tmp/archivebox-ci-data
+          )
+
+          sudo -H -u archivebox bash -lc '
+            set -Eeuo pipefail
+            cd /tmp/archivebox-ci-data
+            timeout 10m archivebox add "http://127.0.0.1:18080/"
+            archivebox status
+
+            test -s index.sqlite3
+            test -d archive
+
+            find archive -mindepth 2 -type f -print | tee /tmp/archivebox-ci-output-files.txt
+            test "$(wc -l < /tmp/archivebox-ci-output-files.txt)" -gt 0
+            grep -R -I "ArchiveBox Debian CI Fixture" archive
+          '
 
       - name: Upload artifact
         if: steps.published.outputs.exists != 'true'
