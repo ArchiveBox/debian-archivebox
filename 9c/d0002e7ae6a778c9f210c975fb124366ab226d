@@ -1,0 +1,25 @@
+pkg/debian/install.sh
+  s_02a3d148722916::t_3784aeaa9d5c9b 24,30,69
+pkg/debian/nfpm.yaml
+  s_02a3d148722916::t_3478c93f34fe1a 10-12
+README.md
+  s_02a3d148722916::t_29b54da5160162 13-14
+pkg/debian/scripts/preremove.sh
+  s_02a3d148722916::t_cdb8e8b9719a33 15
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.3",
+  "base_commit_sha": "9cd0002e7ae6a778c9f210c975fb124366ab226d",
+  "prompts": {},
+  "sessions": {
+    "s_02a3d148722916": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019e9187-0c96-7de0-b9e0-4506eec815e2",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Nick Sweeting <git@sweeting.me>"
+    }
+  }
+}
