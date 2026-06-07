@@ -112,7 +112,10 @@ jobs:
             sleep 1
           done
 
-          sudo -H -u archivebox bash -lc '
+          sudo -u archivebox env \
+            HOME=/var/lib/archivebox \
+            XDG_CONFIG_HOME=/var/lib/archivebox/.config \
+            bash -lc '
             set -Eeuo pipefail
             cd /tmp/archivebox-ci-data
             archivebox init
@@ -120,11 +123,14 @@ jobs:
 
           (
             cd /tmp/archivebox-ci-data
-            sudo timeout 30m archivebox install
+            sudo env HOME=/root XDG_CONFIG_HOME=/root/.config timeout 30m archivebox install
             sudo chown -R archivebox:archivebox /tmp/archivebox-ci-data
           )
 
-          sudo -H -u archivebox bash -lc '
+          sudo -u archivebox env \
+            HOME=/var/lib/archivebox \
+            XDG_CONFIG_HOME=/var/lib/archivebox/.config \
+            bash -lc '
             set -Eeuo pipefail
             cd /tmp/archivebox-ci-data
             timeout 10m archivebox add "http://127.0.0.1:18080/"
