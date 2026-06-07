@@ -79,7 +79,18 @@ jobs:
           sudo apt-get install -y "./$DEB_FILE"
           archivebox version
 
-          sudo mkdir -p /tmp/archivebox-ci-fixture /tmp/archivebox-ci-data
+          sudo mkdir -p \
+            /tmp/archivebox-ci-fixture \
+            /tmp/archivebox-ci-data \
+            /tmp/archivebox-ci-runtime-root \
+            /tmp/archivebox-ci-runtime-archivebox
+          sudo chown root:root /tmp/archivebox-ci-runtime-root
+          sudo chmod 700 /tmp/archivebox-ci-runtime-root
+          sudo chown archivebox:archivebox \
+            /tmp/archivebox-ci-fixture \
+            /tmp/archivebox-ci-data \
+            /tmp/archivebox-ci-runtime-archivebox
+          sudo chmod 700 /tmp/archivebox-ci-runtime-archivebox
           sudo tee /tmp/archivebox-ci-fixture/index.html >/dev/null <<'HTML'
           <!doctype html>
           <html>
@@ -95,7 +106,6 @@ jobs:
             </body>
           </html>
           HTML
-          sudo chown -R archivebox:archivebox /tmp/archivebox-ci-fixture /tmp/archivebox-ci-data
 
           python3 -m http.server 18080 --bind 127.0.0.1 --directory /tmp/archivebox-ci-fixture &
           SERVER_PID="$!"
@@ -115,6 +125,7 @@ jobs:
           sudo -u archivebox env \
             HOME=/var/lib/archivebox \
             XDG_CONFIG_HOME=/var/lib/archivebox/.config \
+            XDG_RUNTIME_DIR=/tmp/archivebox-ci-runtime-archivebox \
             bash -lc '
             set -Eeuo pipefail
             cd /tmp/archivebox-ci-data
@@ -123,13 +134,18 @@ jobs:
 
           (
             cd /tmp/archivebox-ci-data
-            sudo env HOME=/root XDG_CONFIG_HOME=/root/.config timeout 30m archivebox install
+            sudo env \
+              HOME=/root \
+              XDG_CONFIG_HOME=/root/.config \
+              XDG_RUNTIME_DIR=/tmp/archivebox-ci-runtime-root \
+              timeout 30m archivebox install
             sudo chown -R archivebox:archivebox /tmp/archivebox-ci-data
           )
 
           sudo -u archivebox env \
             HOME=/var/lib/archivebox \
             XDG_CONFIG_HOME=/var/lib/archivebox/.config \
+            XDG_RUNTIME_DIR=/tmp/archivebox-ci-runtime-archivebox \
             bash -lc '
             set -Eeuo pipefail
             cd /tmp/archivebox-ci-data
