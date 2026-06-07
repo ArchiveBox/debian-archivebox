@@ -1,0 +1,28 @@
+pkg/debian/archivebox
+  s_02a3d148722916::t_2d2ac436ef8292 42-46
+  s_02a3d148722916::t_4ff755671a0915 26-27
+  s_02a3d148722916::t_85b25d5401cf41 7-10,18-25,28-41
+pkg/debian/scripts/postinstall.sh
+  s_02a3d148722916::t_d61d82256ad853 10,12-14
+.github/workflows/build.yml
+  s_02a3d148722916::t_28b57af57ca012 83-88
+  s_02a3d148722916::t_917e8784f40e14 82,89-91,124-125,135
+README.md
+  s_02a3d148722916::t_a803e4b6eb7b81 33-45,81-84
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.3",
+  "base_commit_sha": "36a2b9e2f7cf5945770c4b3e7377b9e1a44c86f3",
+  "prompts": {},
+  "sessions": {
+    "s_02a3d148722916": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019e9187-0c96-7de0-b9e0-4506eec815e2",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Nick Sweeting <git@sweeting.me>"
+    }
+  }
+}
