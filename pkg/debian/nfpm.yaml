@@ -7,9 +7,9 @@ maintainer: "ArchiveBox <debian@archivebox.io>"
 description: |
   Self-hosted internet archiving solution.
   This third-party package is a thin apt wrapper around the normal Python
-  install flow. It installs uv, uv-managed Python 3.13, and ArchiveBox into
-  /opt/archivebox/venv. ArchiveBox runtime/plugin dependencies are handled by
-  `archivebox install`.
+  install flow. It reuses or installs uv, lets uv resolve Python 3.13, and
+  installs ArchiveBox into /opt/archivebox/venv. ArchiveBox runtime/plugin
+  dependencies are handled by `archivebox install`.
 vendor: "ArchiveBox"
 homepage: "https://archivebox.io"
 license: "MIT"

@@ -11,7 +11,6 @@ ARCHIVEBOX_UV_INSTALLER_URL="${ARCHIVEBOX_UV_INSTALLER_URL:-https://astral.sh/uv
 ARCHIVEBOX_USE_SYSTEM_UV="${ARCHIVEBOX_USE_SYSTEM_UV:-1}"
 
 export UV_CACHE_DIR="${UV_CACHE_DIR:-$ARCHIVEBOX_HOME/cache/uv}"
-export UV_PYTHON_INSTALL_DIR="${UV_PYTHON_INSTALL_DIR:-$ARCHIVEBOX_HOME/python}"
 export UV_LINK_MODE="${UV_LINK_MODE:-copy}"
 export UV_NO_CONFIG=1
 
@@ -22,14 +21,13 @@ fi
 
 ARCHIVEBOX_PIP_SPEC="${ARCHIVEBOX_PIP_SPEC:-archivebox}"
 
-mkdir -p "$ARCHIVEBOX_HOME" "$ARCHIVEBOX_UV_BIN_DIR" "$UV_CACHE_DIR" "$UV_PYTHON_INSTALL_DIR"
+mkdir -p "$ARCHIVEBOX_HOME" "$ARCHIVEBOX_UV_BIN_DIR" "$UV_CACHE_DIR"
 
 uv_is_suitable() {
     local uv_bin="$1"
 
     [[ -x "$uv_bin" ]] || return 1
-    "$uv_bin" python install --help >/dev/null 2>&1 || return 1
-    "$uv_bin" venv --help 2>/dev/null | grep -q -- "--managed-python" || return 1
+    "$uv_bin" venv --help 2>/dev/null | grep -q -- "--python" || return 1
     "$uv_bin" pip install --help 2>/dev/null | grep -q -- "--compile-bytecode" || return 1
 }
 
@@ -56,9 +54,6 @@ if [[ ! -x "$ARCHIVEBOX_UV" ]]; then
     exit 1
 fi
 
-echo "[+] Installing uv-managed Python 3.13..."
-"$ARCHIVEBOX_UV" python install 3.13 --install-dir "$UV_PYTHON_INSTALL_DIR"
-
 if [[ -x "$ARCHIVEBOX_VENV/bin/python" ]]; then
     if ! "$ARCHIVEBOX_VENV/bin/python" - <<'PY'
 import sys
@@ -71,7 +66,7 @@ PY
 fi
 
 echo "[+] Creating ArchiveBox virtualenv in $ARCHIVEBOX_VENV..."
-"$ARCHIVEBOX_UV" venv "$ARCHIVEBOX_VENV" --managed-python --python 3.13 --seed --allow-existing
+"$ARCHIVEBOX_UV" venv "$ARCHIVEBOX_VENV" --python 3.13 --seed --allow-existing
 
 echo "[+] Installing ArchiveBox with uv pip:"
 echo "    $ARCHIVEBOX_PIP_SPEC"

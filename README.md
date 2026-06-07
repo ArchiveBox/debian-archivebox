@@ -10,7 +10,8 @@ the normal Python install flow:
    unit, and a small package metadata file.
 2. `postinstall` reuses a suitable host `uv` when one is already installed, or
    installs `uv` into `/opt/archivebox/uv` as a fallback.
-3. `uv` installs CPython 3.13 into `/opt/archivebox/python`.
+3. `uv` resolves Python 3.13 from the host or its normal managed-Python
+   location.
 4. `uv pip install` installs ArchiveBox into `/opt/archivebox/venv`.
 5. Runtime extractor/plugin dependencies remain managed by `archivebox install`.
 

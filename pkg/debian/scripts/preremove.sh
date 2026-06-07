@@ -12,7 +12,7 @@ if [[ "${1:-}" == "remove" || "${1:-}" == "purge" ]]; then
     fi
 
     echo "[+] Removing ArchiveBox runtime from /opt/archivebox..."
-    rm -rf /opt/archivebox/venv /opt/archivebox/uv /opt/archivebox/python /opt/archivebox/cache
+    rm -rf /opt/archivebox/venv /opt/archivebox/uv /opt/archivebox/cache
 
     echo "[i] ArchiveBox data in /var/lib/archivebox has not been removed."
     echo "    Remove it manually if you no longer need it:"
