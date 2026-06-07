@@ -1,0 +1,22 @@
+pkg/debian/install.sh
+  s_02a3d148722916::t_76686396256bd3 36-44,50
+  s_02a3d148722916::t_762b78f7fe99f7 12-13,26,68-88,110-136
+README.md
+  s_02a3d148722916::t_68bb78b9e24d38 14
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.3",
+  "base_commit_sha": "99b7faba13213d0cc1643d43049a3f2cbebe7467",
+  "prompts": {},
+  "sessions": {
+    "s_02a3d148722916": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019e9187-0c96-7de0-b9e0-4506eec815e2",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Nick Sweeting <git@sweeting.me>"
+    }
+  }
+}
