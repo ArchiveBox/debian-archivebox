@@ -1,0 +1,21 @@
+pkg/debian/archivebox
+  s_02a3d148722916::t_5bb270082b8e79 11-13,75-89,108-118
+.github/workflows/build.yml
+  s_02a3d148722916::t_16e1ac2f1fcd8f 124-128
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.3",
+  "base_commit_sha": "7d5670ec4c9825e467a4befd9e0dec693ab0734a",
+  "prompts": {},
+  "sessions": {
+    "s_02a3d148722916": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019e9187-0c96-7de0-b9e0-4506eec815e2",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Nick Sweeting <git@sweeting.me>"
+    }
+  }
+}
