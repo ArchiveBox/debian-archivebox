@@ -1,0 +1,23 @@
+.github/workflows/build.yml
+  s_02a3d148722916::t_42da858c2ae0eb 115
+README.md
+  s_02a3d148722916::t_42da858c2ae0eb 28
+pkg/debian/archivebox
+  s_02a3d148722916::t_d203a4e33a420a 12-16
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.3",
+  "base_commit_sha": "a2e4b758eeeecacfacb1ed84174db1f43f40595c",
+  "prompts": {},
+  "sessions": {
+    "s_02a3d148722916": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019e9187-0c96-7de0-b9e0-4506eec815e2",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Nick Sweeting <git@sweeting.me>"
+    }
+  }
+}
