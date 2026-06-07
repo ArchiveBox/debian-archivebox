@@ -91,6 +91,8 @@ jobs:
             /tmp/archivebox-ci-data \
             /tmp/archivebox-ci-runtime-archivebox
           sudo chmod 700 /tmp/archivebox-ci-runtime-archivebox
+          sudo mkdir -p /var/lib/archivebox/.config
+          sudo chown -R archivebox:archivebox /var/lib/archivebox
           sudo tee /tmp/archivebox-ci-fixture/index.html >/dev/null <<'HTML'
           <!doctype html>
           <html>
@@ -135,8 +137,8 @@ jobs:
           (
             cd /tmp/archivebox-ci-data
             sudo env \
-              HOME=/root \
-              XDG_CONFIG_HOME=/root/.config \
+              HOME=/var/lib/archivebox \
+              XDG_CONFIG_HOME=/var/lib/archivebox/.config \
               XDG_RUNTIME_DIR=/tmp/archivebox-ci-runtime-archivebox \
               timeout 30m archivebox install
             sudo chown -R archivebox:archivebox /tmp/archivebox-ci-data
