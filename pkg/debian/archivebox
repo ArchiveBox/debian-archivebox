@@ -8,6 +8,9 @@ ARCHIVEBOX_USER="${ARCHIVEBOX_USER:-archivebox}"
 ARCHIVEBOX_STATE_DIR="${ARCHIVEBOX_STATE_DIR:-/var/lib/archivebox}"
 ARCHIVEBOX_CONFIG_DIR="${ARCHIVEBOX_CONFIG_DIR:-$ARCHIVEBOX_STATE_DIR/.config}"
 ARCHIVEBOX_RUNTIME_DIR="${ARCHIVEBOX_RUNTIME_DIR:-$ARCHIVEBOX_STATE_DIR/.runtime}"
+ARCHIVEBOX_DATA_UID=""
+ARCHIVEBOX_DATA_GID=""
+ARCHIVEBOX_DATA_HOME=""
 
 # Debian/Ubuntu ship an unrelated audio utility as the "sonic" apt package.
 # Keep the optional Sonic search backend opt-in so `archivebox install` can use
@@ -69,6 +72,21 @@ set_root_runtime_for_cwd_owner() {
     export USER="$data_user"
     export XDG_CONFIG_HOME="$data_home/.config"
     export XDG_RUNTIME_DIR="$runtime_dir"
+
+    ARCHIVEBOX_DATA_UID="$data_uid"
+    ARCHIVEBOX_DATA_GID="$data_gid"
+    ARCHIVEBOX_DATA_HOME="$data_home"
+}
+
+repair_root_invocation_ownership() {
+    local path
+
+    [[ -n "$ARCHIVEBOX_DATA_UID" && -n "$ARCHIVEBOX_DATA_GID" ]] || return 0
+
+    for path in "." "$XDG_CONFIG_HOME/abx" "$XDG_RUNTIME_DIR"; do
+        [[ -e "$path" ]] || continue
+        find "$path" -xdev -user 0 -exec chown -h "$ARCHIVEBOX_DATA_UID:$ARCHIVEBOX_DATA_GID" {} +
+    done
 }
 
 CURRENT_USER="$(id -un 2>/dev/null || true)"
@@ -87,4 +105,15 @@ elif [[ "$CURRENT_USER" == "$ARCHIVEBOX_USER" ]]; then
 fi
 
 export PATH="$ARCHIVEBOX_VENV/bin:$ARCHIVEBOX_UV_BIN:$PATH"
+
+if [[ "${EUID:-$(id -u)}" == "0" ]]; then
+    set +e
+    "$ARCHIVEBOX_VENV/bin/archivebox" "$@"
+    status="$?"
+    set -e
+
+    repair_root_invocation_ownership
+    exit "$status"
+fi
+
 exec "$ARCHIVEBOX_VENV/bin/archivebox" "$@"
