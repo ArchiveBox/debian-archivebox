@@ -1,10 +1,8 @@
 # ArchiveBox Debian Package
 
-This repo builds the third-party `archivebox` `.deb` package.
+This repo builds the `archivebox` `.deb` package used by `apt` install on Ubuntu/Debian-based systems.
 
-The package intentionally does not translate ArchiveBox Python/plugin
-dependencies into Debian package dependencies. It is a thin apt wrapper around
-the normal Python install flow:
+The package is just a thin apt wrapper around the normal Python install flow, it's not a "proper debian package" because it depends on postinstall scripts to setup python, uv, and archivebox.
 
 1. `apt` installs `/usr/bin/archivebox`, `/opt/archivebox/install.sh`, a systemd
    unit, and a small package metadata file.
@@ -13,7 +11,7 @@ the normal Python install flow:
 3. `uv` resolves Python 3.13 from the host or its normal managed-Python
    location for the `archivebox` system user.
 4. `uv pip install` installs ArchiveBox into `/opt/archivebox/venv`.
-5. Runtime extractor/plugin dependencies remain managed by `archivebox install`.
+5. Runtime extractor/plugin dependencies remain managed by `archivebox install`, and only your selected plugin dependencies are lazy-installed on first use.
 
 ## Install
 
@@ -27,20 +25,26 @@ Then initialize an archive:
 
 ```bash
 mkdir -p ~/archivebox/data && cd ~/archivebox/data
-archivebox init
-sudo archivebox install
+archivebox init           # initialize a new collection in the current dir
+archivebox version        # see version of all detected installed dependencies
+archivebox install        # use sudo to get apt dependencies auto-installed too
 archivebox add 'https://example.com'
 ```
 
 The package creates the `archivebox` system user and the state/config/runtime
 directories needed for systemd usage. Regular users can keep archives anywhere
-they own; `sudo archivebox install` installs runtime dependencies without
-leaving the collection owned by root.
+they own; usually only `archivebox install` is needed to get all plugin dependencies, 
+but if you are missing some runtime apt dependencies, then you can run `sudo archivebox install` 
+to get them (don't worry, it wont leave the collection owned by root).
 
-The unsigned apt repo is the minimally viable install path. If signing is added
-later, users can switch from `[trusted=yes]` to a normal `signed-by=` keyring.
+<br/>
 
-## Build Locally
+---
+---
+
+<br/>
+
+## Building the `.deb` From Source
 
 ```bash
 go install github.com/goreleaser/nfpm/v2/cmd/nfpm@latest
@@ -57,30 +61,9 @@ ARCHIVEBOX_REF=v0.9.34 ./bin/build_deb.sh
 ARCHIVEBOX_PIP_SPEC='archivebox==0.9.34' DEB_VERSION='0.9.34' ./bin/build_deb.sh
 ```
 
-## Automation
-
-`.github/workflows/build.yml` rebuilds from `ArchiveBox:dev` by:
-
-- `workflow_dispatch` for manual rebuilds
-- `repository_dispatch` with type `archivebox-dev-updated`
-- a scheduled poll every 30 minutes
-
-The workflow publishes:
-
-- a prerelease named `dev-<upstream-sha>`
-- the updated apt repository on `gh-pages`
-
 Before publishing, CI verifies the built package on an Ubuntu GitHub Actions
 runner by installing the `.deb` with `apt`, running the installed
 `/usr/bin/archivebox` as both root and a normal passwordless-sudo user, running
 full `archivebox install` flows for both, archiving a local fixture page as the
 normal user, and asserting that `index.sqlite3` plus real files under `archive/`
 are written to disk.
-
-A push webhook or upstream workflow can trigger an immediate rebuild with:
-
-```bash
-gh api repos/ArchiveBox/debian-archivebox/dispatches \
-  -f event_type=archivebox-dev-updated \
-  -F client_payload[ref]=dev
-```
