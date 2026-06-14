@@ -77,7 +77,6 @@ jobs:
 
           DEB_FILE="$(ls dist/*.deb | head -1)"
           sudo apt-get install -y "./$DEB_FILE"
-          archivebox version
 
           mkdir -p /tmp/archivebox-ci-fixture "$HOME/archivebox"
           tee /tmp/archivebox-ci-fixture/index.html >/dev/null <<'HTML'
@@ -115,6 +114,8 @@ jobs:
             mkdir -p "$HOME/archivebox/data" && cd "$HOME/archivebox/data"
             archivebox init
             sudo timeout 30m archivebox install
+            archivebox version
+            archivebox status
 
             test -w .
             test -w archive
