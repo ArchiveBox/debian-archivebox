@@ -5,18 +5,18 @@ Codename: dev
 Architectures: amd64 arm64 all
 Components: main
 Description: ArchiveBox third-party Debian packages
-Date: Sun, 21 Jun 2026 09:05:54 +0000
+Date: Sun, 21 Jun 2026 09:41:17 +0000
 MD5Sum:
- 116658a3f146478e74e0b282176e9787            14271 main/binary-all/Packages
- 0b82ad588eacfb4dd4f53d75e0d9985b             2449 main/binary-all/Packages.gz
- 116658a3f146478e74e0b282176e9787            14271 main/binary-amd64/Packages
- 0b82ad588eacfb4dd4f53d75e0d9985b             2449 main/binary-amd64/Packages.gz
- 116658a3f146478e74e0b282176e9787            14271 main/binary-arm64/Packages
- 0b82ad588eacfb4dd4f53d75e0d9985b             2449 main/binary-arm64/Packages.gz
+ b0c845ab7051c3895c045ec32fa77a25            15126 main/binary-all/Packages
+ e2300f0fa54c86646eb67d1e2734c22e             2558 main/binary-all/Packages.gz
+ b0c845ab7051c3895c045ec32fa77a25            15126 main/binary-amd64/Packages
+ b3bea95f9978e93ff6e415bfbb82bcba             2558 main/binary-amd64/Packages.gz
+ b0c845ab7051c3895c045ec32fa77a25            15126 main/binary-arm64/Packages
+ e2300f0fa54c86646eb67d1e2734c22e             2558 main/binary-arm64/Packages.gz
 SHA256:
- 13c43d0231aef9514dcc7eacf18f61682e0fd9f1f33441f46bf1bbb66e7cd223            14271 main/binary-all/Packages
- 1945435bb6ba84161b5ebb1ac14b0e69e1bee6c65b0b4089ba855b2106abc45f             2449 main/binary-all/Packages.gz
- 13c43d0231aef9514dcc7eacf18f61682e0fd9f1f33441f46bf1bbb66e7cd223            14271 main/binary-amd64/Packages
- 1945435bb6ba84161b5ebb1ac14b0e69e1bee6c65b0b4089ba855b2106abc45f             2449 main/binary-amd64/Packages.gz
- 13c43d0231aef9514dcc7eacf18f61682e0fd9f1f33441f46bf1bbb66e7cd223            14271 main/binary-arm64/Packages
- 1945435bb6ba84161b5ebb1ac14b0e69e1bee6c65b0b4089ba855b2106abc45f             2449 main/binary-arm64/Packages.gz
+ 5b76be47d46524ccf65624127c1d1a4dc4f6ecfece1760f8982ee68883dcf153            15126 main/binary-all/Packages
+ 9101a8c9ce182b701ca424ef5663a4a306e49041bd62d3acb46d44add75f7dc6             2558 main/binary-all/Packages.gz
+ 5b76be47d46524ccf65624127c1d1a4dc4f6ecfece1760f8982ee68883dcf153            15126 main/binary-amd64/Packages
+ ef15370487c4aab152736af7c29732f78a77ae1e870b22d55f432f688562882d             2558 main/binary-amd64/Packages.gz
+ 5b76be47d46524ccf65624127c1d1a4dc4f6ecfece1760f8982ee68883dcf153            15126 main/binary-arm64/Packages
+ 9101a8c9ce182b701ca424ef5663a4a306e49041bd62d3acb46d44add75f7dc6             2558 main/binary-arm64/Packages.gz
