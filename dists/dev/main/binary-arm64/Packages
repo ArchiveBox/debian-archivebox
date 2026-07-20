@@ -671,6 +671,27 @@ Description: Self-hosted internet archiving solution.
  dependencies are handled by `archivebox install`.
 
 Package: archivebox
+Version: 0.9.35rc136~dev1784589801+d9b648e6a978
+Architecture: all
+Maintainer: ArchiveBox <debian@archivebox.io>
+Installed-Size: 9
+Depends: ca-certificates, curl
+Recommends: git, wget
+Filename: pool/main/a/archivebox/archivebox_0.9.35rc136~dev1784589801+d9b648e6a978_all.deb
+Size: 4538
+MD5sum: 6d5192aa58522e5770ec71f1141b6810
+SHA1: 66a1afd3d1db866905e939d9bea10c8d088a8026
+SHA256: de42f9f7a8141cc2587d6dd2fddd66b41472aad2ae1e8a86ad6b092509730e9a
+Section: web
+Priority: optional
+Homepage: https://archivebox.io
+Description: Self-hosted internet archiving solution.
+ This third-party package is a thin apt wrapper around the normal Python
+ install flow. It reuses or installs uv, lets uv resolve Python 3.13, and
+ installs ArchiveBox into /opt/archivebox/venv. ArchiveBox runtime/plugin
+ dependencies are handled by `archivebox install`.
+
+Package: archivebox
 Version: 0.9.35rc40~dev1781491012+40a2bc6f4caf
 Architecture: all
 Maintainer: ArchiveBox <debian@archivebox.io>
