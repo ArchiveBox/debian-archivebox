@@ -1,0 +1,23 @@
+AGENTS.md
+  s_15f59ac80abb8e::t_51320025e37c7c 37
+  s_15f59ac80abb8e::t_8224a7e5a5a178 44-49
+  s_15f59ac80abb8e::t_417f00307a7210 1-33,36,42-43,50-53,56-58
+  s_15f59ac80abb8e::t_36bbcb01a8cfef 54-55
+  s_15f59ac80abb8e::t_181ef5796cea57 34-35,38-41
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "6637d04882ac6888a82bf686856fccc68e3c255d",
+  "prompts": {},
+  "sessions": {
+    "s_15f59ac80abb8e": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019eaa8a-3bcf-7290-a54d-15bd828c06a5",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Nick Sweeting <git@sweeting.me>"
+    }
+  }
+}
