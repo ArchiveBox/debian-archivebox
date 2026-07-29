@@ -26,7 +26,7 @@ go install github.com/goreleaser/nfpm/v2/cmd/nfpm@latest
 Build the package:
 
 ```bash
-./bin/build_deb.sh
+ARCHIVEBOX_VERSION=0.9.35rc175 ./bin/build_deb.sh
 ```
 
 ## User-Facing Setup
@@ -51,7 +51,7 @@ Alternative install methods:
 ## Basic Usage
 
 ```bash
-./bin/build_deb.sh
+ARCHIVEBOX_VERSION=0.9.35rc175 ./bin/build_deb.sh
 ls -lh dist/archivebox_*.deb
 ```
 

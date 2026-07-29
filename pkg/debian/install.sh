@@ -20,11 +20,7 @@ if [[ -f "$ARCHIVEBOX_PACKAGE_ENV" ]]; then
 fi
 
 : "${ARCHIVEBOX_VERSION:?missing ARCHIVEBOX_VERSION in $ARCHIVEBOX_PACKAGE_ENV}"
-: "${ARCHIVEBOX_PIP_SPEC:?missing ARCHIVEBOX_PIP_SPEC in $ARCHIVEBOX_PACKAGE_ENV}"
-[[ "$ARCHIVEBOX_PIP_SPEC" == "archivebox==$ARCHIVEBOX_VERSION" ]] || {
-    echo "[X] Package metadata must install archivebox==$ARCHIVEBOX_VERSION." >&2
-    exit 1
-}
+ARCHIVEBOX_PIP_SPEC="archivebox==$ARCHIVEBOX_VERSION"
 
 mkdir -p "$ARCHIVEBOX_HOME" "$ARCHIVEBOX_UV_BIN_DIR" "$UV_CACHE_DIR" "$ARCHIVEBOX_VENV"
 
@@ -61,7 +57,6 @@ if [[ "${EUID:-$(id -u)}" == "0" ]]; then
         ARCHIVEBOX_UV="$ARCHIVEBOX_UV" \
         ARCHIVEBOX_VENV="$ARCHIVEBOX_VENV" \
         ARCHIVEBOX_PACKAGE_ENV="$ARCHIVEBOX_PACKAGE_ENV" \
-        ARCHIVEBOX_PIP_SPEC="$ARCHIVEBOX_PIP_SPEC" \
         ARCHIVEBOX_VERSION="$ARCHIVEBOX_VERSION" \
         ARCHIVEBOX_USER="$ARCHIVEBOX_USER" \
         ARCHIVEBOX_STATE_DIR="$ARCHIVEBOX_STATE_DIR" \
@@ -110,6 +105,7 @@ echo "    $ARCHIVEBOX_PIP_SPEC"
     --python "$ARCHIVEBOX_VENV/bin/python" \
     --upgrade \
     --compile-bytecode \
+    --only-binary :all: \
     "$ARCHIVEBOX_PIP_SPEC"
 
 echo "[√] ArchiveBox installed."

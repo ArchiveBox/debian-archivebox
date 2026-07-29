@@ -6,8 +6,7 @@ The package is just a thin apt wrapper around the normal Python install flow, it
 
 1. `apt` installs `/usr/bin/archivebox`, `/opt/archivebox/install.sh`, a systemd
    unit, and a small package metadata file.
-2. `postinstall` uses a suitable host `uv` when one is already installed;
-   otherwise it installs the official prebuilt `uv` into `/opt/archivebox/uv`.
+2. `postinstall` installs the official prebuilt `uv` into `/opt/archivebox/uv`.
 3. `uv` resolves Python 3.13 from the host or its normal managed-Python
    location for the `archivebox` system user.
 4. `uv pip install` installs ArchiveBox into `/opt/archivebox/venv`.
@@ -53,8 +52,8 @@ sudo apt install ./dist/archivebox_*.deb
 ```
 
 `ARCHIVEBOX_VERSION` is the only ArchiveBox release input. The package stores
-the exact `archivebox==VERSION` requirement in `/opt/archivebox/package.env`;
-it never clones or embeds the ArchiveBox source tree.
+that version in `/opt/archivebox/package.env` and installs its exact wheel; it
+never clones, embeds, or builds the ArchiveBox source tree.
 
 Before publishing, CI verifies the built package on an Ubuntu GitHub Actions
 runner by installing the `.deb` with `apt`, running the installed

@@ -24,7 +24,6 @@ fi
 mkdir -p "$BUILD_DIR" "$DIST_DIR"
 rm -f "$DIST_DIR"/archivebox_*.deb "$DIST_DIR/build.env"
 
-ARCHIVEBOX_PIP_SPEC="archivebox==${ARCHIVEBOX_VERSION}"
 DEB_VERSION="${ARCHIVEBOX_VERSION/rc/~rc}"
 DEB_ARCH="all"
 
@@ -32,13 +31,11 @@ PACKAGE_ENV="$BUILD_DIR/package.env"
 {
     printf 'ARCHIVEBOX_VERSION=%q\n' "$ARCHIVEBOX_VERSION"
     printf 'ARCHIVEBOX_DEB_VERSION=%q\n' "$DEB_VERSION"
-    printf 'ARCHIVEBOX_PIP_SPEC=%q\n' "$ARCHIVEBOX_PIP_SPEC"
 } > "$PACKAGE_ENV"
 
 cat > "$DIST_DIR/build.env" <<EOF
 ARCHIVEBOX_VERSION=$ARCHIVEBOX_VERSION
 ARCHIVEBOX_DEB_VERSION=$DEB_VERSION
-ARCHIVEBOX_PIP_SPEC=$ARCHIVEBOX_PIP_SPEC
 EOF
 
 export DEB_VERSION
@@ -55,4 +52,4 @@ echo "[√] Built:"
 ls -lh "$DIST_DIR"/*.deb
 echo
 echo "[i] Package installs:"
-echo "    $ARCHIVEBOX_PIP_SPEC"
+echo "    archivebox==$ARCHIVEBOX_VERSION"
