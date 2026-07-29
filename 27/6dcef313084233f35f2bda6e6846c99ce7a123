@@ -1,0 +1,30 @@
+bin/build_deb.sh
+  s_f8414d52051f83::t_e52ee84c140174 28-29
+  s_f8414d52051f83::t_c4e70d08d247d1 9,13-14,27
+  s_f8414d52051f83::t_fb11738434578e 25
+README.md
+  s_f8414d52051f83::t_e52ee84c140174 9-10,47,51,55-57
+.github/workflows/build.yml
+  s_f8414d52051f83::t_6cf35ea613c353 26,30-31,51,175
+  s_f8414d52051f83::t_3f89ef09e9f790 90-92,94-101
+  s_f8414d52051f83::t_fb11738434578e 56-58,67-69,89,93,102-103,106-108,147,152-155,158,163-165
+  s_f8414d52051f83::t_120e794360ce3e 8
+pkg/debian/install.sh
+  s_f8414d52051f83::t_e52ee84c140174 22-27,48,60,68-73,87,89-91,95-101
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.17",
+  "base_commit_sha": "276dcef313084233f35f2bda6e6846c99ce7a123",
+  "prompts": {},
+  "sessions": {
+    "s_f8414d52051f83": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f73c1-cded-7c63-bb8b-3b3c3e5de67d",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Nick Sweeting <git@sweeting.me>"
+    }
+  }
+}
