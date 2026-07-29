@@ -12,11 +12,6 @@ ARCHIVEBOX_DATA_UID=""
 ARCHIVEBOX_DATA_GID=""
 ARCHIVEBOX_DATA_HOME=""
 
-# Debian/Ubuntu ship an unrelated audio utility as the "sonic" apt package.
-# Keep the optional Sonic search backend opt-in so `archivebox install` can use
-# the default ripgrep backend without trying to install the wrong package.
-export SEARCH_BACKEND_SONIC_ENABLED="${SEARCH_BACKEND_SONIC_ENABLED:-False}"
-
 if [[ ! -x "$ARCHIVEBOX_VENV/bin/archivebox" ]]; then
     echo "Error: ArchiveBox is not installed in $ARCHIVEBOX_VENV" >&2
     echo "Try running: sudo /opt/archivebox/install.sh" >&2
