@@ -37,19 +37,22 @@ if [[ "${EUID:-$(id -u)}" == "0" ]]; then
     ARCHIVEBOX_USER_HOME="$(getent passwd "$ARCHIVEBOX_USER" | cut -d: -f6)"
     [[ -n "$ARCHIVEBOX_USER_HOME" ]] || ARCHIVEBOX_USER_HOME="$ARCHIVEBOX_STATE_DIR"
 
-    mkdir -p "$ARCHIVEBOX_USER_HOME/.local" "$ARCHIVEBOX_USER_HOME/.cache"
+    mkdir -p "$ARCHIVEBOX_USER_HOME/.local" "$ARCHIVEBOX_USER_HOME/.cache" "$ARCHIVEBOX_USER_HOME/.config"
     chown -R "$ARCHIVEBOX_USER:$ARCHIVEBOX_USER" \
         "$ARCHIVEBOX_UV_BIN_DIR" \
         "$ARCHIVEBOX_VENV" \
         "$UV_CACHE_DIR" \
         "$ARCHIVEBOX_USER_HOME/.local" \
-        "$ARCHIVEBOX_USER_HOME/.cache"
+        "$ARCHIVEBOX_USER_HOME/.cache" \
+        "$ARCHIVEBOX_USER_HOME/.config"
 
     runuser -u "$ARCHIVEBOX_USER" -- env \
         HOME="$ARCHIVEBOX_USER_HOME" \
         USER="$ARCHIVEBOX_USER" \
         LOGNAME="$ARCHIVEBOX_USER" \
         PATH="$ARCHIVEBOX_UV_BIN_DIR:$PATH" \
+        XDG_CONFIG_HOME="$ARCHIVEBOX_USER_HOME/.config" \
+        XDG_CACHE_HOME="$ARCHIVEBOX_USER_HOME/.cache" \
         ARCHIVEBOX_HOME="$ARCHIVEBOX_HOME" \
         ARCHIVEBOX_UV_BIN_DIR="$ARCHIVEBOX_UV_BIN_DIR" \
         ARCHIVEBOX_UV="$ARCHIVEBOX_UV" \
