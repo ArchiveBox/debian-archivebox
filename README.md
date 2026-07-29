@@ -6,8 +6,8 @@ The package is just a thin apt wrapper around the normal Python install flow, it
 
 1. `apt` installs `/usr/bin/archivebox`, `/opt/archivebox/install.sh`, a systemd
    unit, and a small package metadata file.
-2. `postinstall` reuses a suitable host `uv` when one is already installed, or
-   installs `uv` into `/opt/archivebox/uv` as a fallback.
+2. `postinstall` uses a suitable host `uv` when one is already installed;
+   otherwise it installs the official prebuilt `uv` into `/opt/archivebox/uv`.
 3. `uv` resolves Python 3.13 from the host or its normal managed-Python
    location for the `archivebox` system user.
 4. `uv pip install` installs ArchiveBox into `/opt/archivebox/venv`.
@@ -44,22 +44,17 @@ to get them (don't worry, it wont leave the collection owned by root).
 
 <br/>
 
-## Building the `.deb` From Source
+## Building the `.deb` Wrapper
 
 ```bash
 go install github.com/goreleaser/nfpm/v2/cmd/nfpm@latest
-./bin/build_deb.sh
+ARCHIVEBOX_VERSION=0.9.35rc175 ./bin/build_deb.sh
 sudo apt install ./dist/archivebox_*.deb
 ```
 
-By default, `bin/build_deb.sh` packages the latest `ArchiveBox/ArchiveBox:dev`
-commit and stores that exact source archive URL in `/opt/archivebox/package.env`.
-Override the source when needed:
-
-```bash
-ARCHIVEBOX_REF=v0.9.34 ./bin/build_deb.sh
-ARCHIVEBOX_PIP_SPEC='archivebox==0.9.34' DEB_VERSION='0.9.34' ./bin/build_deb.sh
-```
+`ARCHIVEBOX_VERSION` is the only ArchiveBox release input. The package stores
+the exact `archivebox==VERSION` requirement in `/opt/archivebox/package.env`;
+it never clones or embeds the ArchiveBox source tree.
 
 Before publishing, CI verifies the built package on an Ubuntu GitHub Actions
 runner by installing the `.deb` with `apt`, running the installed
