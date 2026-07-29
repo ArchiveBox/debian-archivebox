@@ -28,43 +28,6 @@ fi
 
 mkdir -p "$ARCHIVEBOX_HOME" "$ARCHIVEBOX_UV_BIN_DIR" "$UV_CACHE_DIR" "$ARCHIVEBOX_VENV"
 
-uv_is_suitable() {
-    local uv_bin="$1"
-
-    [[ -x "$uv_bin" ]] || return 1
-    "$uv_bin" venv --help 2>/dev/null | grep -q -- "--python" || return 1
-    "$uv_bin" pip install --help 2>/dev/null | grep -q -- "--compile-bytecode" || return 1
-}
-
-uv_is_suitable_for_archivebox_user() {
-    local uv_bin="$1"
-
-    uv_is_suitable "$uv_bin" || return 1
-    if [[ "${EUID:-$(id -u)}" == "0" ]] && id -u "$ARCHIVEBOX_USER" >/dev/null 2>&1; then
-        runuser -u "$ARCHIVEBOX_USER" -- "$uv_bin" --version >/dev/null 2>&1 || return 1
-    fi
-}
-
-HOST_UV="$(command -v uv 2>/dev/null || true)"
-
-if [[ -n "$HOST_UV" ]] && uv_is_suitable_for_archivebox_user "$HOST_UV"; then
-    echo "[+] Using existing host uv: $HOST_UV"
-    ln -sfn "$HOST_UV" "$ARCHIVEBOX_UV"
-else
-    if ! command -v curl >/dev/null 2>&1; then
-        echo "[X] curl is required to install uv." >&2
-        exit 1
-    fi
-
-    echo "[+] Installing/updating uv in $ARCHIVEBOX_UV_BIN_DIR..."
-    curl -LsSf https://astral.sh/uv/install.sh | env UV_INSTALL_DIR="$ARCHIVEBOX_UV_BIN_DIR" sh
-fi
-
-if [[ ! -x "$ARCHIVEBOX_UV" ]]; then
-    echo "[X] uv setup completed, but $ARCHIVEBOX_UV does not exist." >&2
-    exit 1
-fi
-
 if [[ "${EUID:-$(id -u)}" == "0" ]]; then
     if ! id -u "$ARCHIVEBOX_USER" >/dev/null 2>&1; then
         echo "[X] The $ARCHIVEBOX_USER system user must exist before installing ArchiveBox." >&2
@@ -75,13 +38,20 @@ if [[ "${EUID:-$(id -u)}" == "0" ]]; then
     [[ -n "$ARCHIVEBOX_USER_HOME" ]] || ARCHIVEBOX_USER_HOME="$ARCHIVEBOX_STATE_DIR"
 
     mkdir -p "$ARCHIVEBOX_USER_HOME/.local" "$ARCHIVEBOX_USER_HOME/.cache"
-    chown -R "$ARCHIVEBOX_USER:$ARCHIVEBOX_USER" "$ARCHIVEBOX_VENV" "$UV_CACHE_DIR" "$ARCHIVEBOX_USER_HOME/.local" "$ARCHIVEBOX_USER_HOME/.cache"
+    chown -R "$ARCHIVEBOX_USER:$ARCHIVEBOX_USER" \
+        "$ARCHIVEBOX_UV_BIN_DIR" \
+        "$ARCHIVEBOX_VENV" \
+        "$UV_CACHE_DIR" \
+        "$ARCHIVEBOX_USER_HOME/.local" \
+        "$ARCHIVEBOX_USER_HOME/.cache"
 
     runuser -u "$ARCHIVEBOX_USER" -- env \
         HOME="$ARCHIVEBOX_USER_HOME" \
         USER="$ARCHIVEBOX_USER" \
         LOGNAME="$ARCHIVEBOX_USER" \
         PATH="$ARCHIVEBOX_UV_BIN_DIR:$PATH" \
+        ARCHIVEBOX_HOME="$ARCHIVEBOX_HOME" \
+        ARCHIVEBOX_UV_BIN_DIR="$ARCHIVEBOX_UV_BIN_DIR" \
         ARCHIVEBOX_UV="$ARCHIVEBOX_UV" \
         ARCHIVEBOX_VENV="$ARCHIVEBOX_VENV" \
         ARCHIVEBOX_PACKAGE_ENV="$ARCHIVEBOX_PACKAGE_ENV" \
@@ -99,6 +69,36 @@ if [[ "${EUID:-$(id -u)}" == "0" ]]; then
     echo "[√] ArchiveBox installed."
     echo "    Run: archivebox version"
     exit 0
+fi
+
+uv_is_suitable() {
+    local uv_bin="$1"
+
+    [[ -x "$uv_bin" ]] || return 1
+    "$uv_bin" venv --help 2>/dev/null | grep -q -- "--python" || return 1
+    "$uv_bin" pip install --help 2>/dev/null | grep -q -- "--compile-bytecode" || return 1
+}
+
+HOST_UV="$(command -v uv 2>/dev/null || true)"
+
+if [[ -n "$HOST_UV" ]] && uv_is_suitable "$HOST_UV"; then
+    echo "[+] Using existing host uv: $HOST_UV"
+    if [[ "$HOST_UV" != "$ARCHIVEBOX_UV" ]]; then
+        ln -sfn "$HOST_UV" "$ARCHIVEBOX_UV"
+    fi
+else
+    if ! command -v curl >/dev/null 2>&1; then
+        echo "[X] curl is required to install uv." >&2
+        exit 1
+    fi
+
+    echo "[+] Installing/updating uv in $ARCHIVEBOX_UV_BIN_DIR..."
+    curl -LsSf https://astral.sh/uv/install.sh | env UV_INSTALL_DIR="$ARCHIVEBOX_UV_BIN_DIR" sh
+fi
+
+if [[ ! -x "$ARCHIVEBOX_UV" ]]; then
+    echo "[X] uv setup completed, but $ARCHIVEBOX_UV does not exist." >&2
+    exit 1
 fi
 
 if [[ -x "$ARCHIVEBOX_VENV/bin/python" ]]; then
