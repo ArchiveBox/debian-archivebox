@@ -32,6 +32,10 @@ jobs:
         run: |
           REF="${{ github.event.inputs.archivebox_ref || github.event.client_payload.ref || 'dev' }}"
           echo "ARCHIVEBOX_REF=$REF" >> "$GITHUB_ENV"
+          VERSION="${{ github.event.client_payload.version || '' }}"
+          if [[ -n "$VERSION" ]]; then
+            echo "ARCHIVEBOX_PIP_SPEC=archivebox==$VERSION" >> "$GITHUB_ENV"
+          fi
 
       - name: Install build tools
         run: |

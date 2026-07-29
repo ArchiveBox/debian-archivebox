@@ -22,6 +22,11 @@ if [[ -f "$ARCHIVEBOX_PACKAGE_ENV" ]]; then
 fi
 
 ARCHIVEBOX_PIP_SPEC="${ARCHIVEBOX_PIP_SPEC:-archivebox}"
+ARCHIVEBOX_UV_PRERELEASE="${ARCHIVEBOX_UV_PRERELEASE:-}"
+ARCHIVEBOX_UV_PIP_ARGS=()
+if [[ -n "$ARCHIVEBOX_UV_PRERELEASE" ]]; then
+    ARCHIVEBOX_UV_PIP_ARGS+=(--prerelease "$ARCHIVEBOX_UV_PRERELEASE")
+fi
 
 mkdir -p "$ARCHIVEBOX_HOME" "$ARCHIVEBOX_UV_BIN_DIR" "$UV_CACHE_DIR" "$ARCHIVEBOX_VENV"
 
@@ -80,11 +85,16 @@ if [[ "${EUID:-$(id -u)}" == "0" ]] && id -u "$ARCHIVEBOX_USER" >/dev/null 2>&1;
         ARCHIVEBOX_UV="$ARCHIVEBOX_UV" \
         ARCHIVEBOX_VENV="$ARCHIVEBOX_VENV" \
         ARCHIVEBOX_PIP_SPEC="$ARCHIVEBOX_PIP_SPEC" \
+        ARCHIVEBOX_UV_PRERELEASE="$ARCHIVEBOX_UV_PRERELEASE" \
         UV_CACHE_DIR="$UV_CACHE_DIR" \
         UV_LINK_MODE="$UV_LINK_MODE" \
         UV_NO_CONFIG="$UV_NO_CONFIG" \
-        bash -s <<'BASH'
+bash -s <<'BASH'
 set -Eeuo pipefail
+ARCHIVEBOX_UV_PIP_ARGS=()
+if [[ -n "${ARCHIVEBOX_UV_PRERELEASE:-}" ]]; then
+    ARCHIVEBOX_UV_PIP_ARGS+=(--prerelease "$ARCHIVEBOX_UV_PRERELEASE")
+fi
 
 if [[ -x "$ARCHIVEBOX_VENV/bin/python" ]]; then
     if ! "$ARCHIVEBOX_VENV/bin/python" - <<'PY'
@@ -106,6 +116,7 @@ echo "    $ARCHIVEBOX_PIP_SPEC"
     --python "$ARCHIVEBOX_VENV/bin/python" \
     --upgrade \
     --compile-bytecode \
+    "${ARCHIVEBOX_UV_PIP_ARGS[@]}" \
     "$ARCHIVEBOX_PIP_SPEC"
 BASH
 
@@ -132,6 +143,7 @@ PY
         --python "$ARCHIVEBOX_VENV/bin/python" \
         --upgrade \
         --compile-bytecode \
+        "${ARCHIVEBOX_UV_PIP_ARGS[@]}" \
         "$ARCHIVEBOX_PIP_SPEC"
 fi
 
