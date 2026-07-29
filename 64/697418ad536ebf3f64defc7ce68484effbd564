@@ -1,0 +1,27 @@
+pkg/debian/install.sh
+  s_f8414d52051f83::t_f9d57fb3107141 23,108
+AGENTS.md
+  s_f8414d52051f83::t_f9d57fb3107141 29,54
+pkg/debian/nfpm.yaml
+  s_f8414d52051f83::t_f9d57fb3107141 10
+bin/build_deb.sh
+  s_f8414d52051f83::t_f9d57fb3107141 55
+README.md
+  s_f8414d52051f83::t_f9d57fb3107141 9,55-56
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.17",
+  "base_commit_sha": "64697418ad536ebf3f64defc7ce68484effbd564",
+  "prompts": {},
+  "sessions": {
+    "s_f8414d52051f83": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f73c1-cded-7c63-bb8b-3b3c3e5de67d",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Nick Sweeting <git@sweeting.me>"
+    }
+  }
+}
