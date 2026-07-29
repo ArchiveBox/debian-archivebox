@@ -14,7 +14,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: debian-archivebox-${{ github.event.inputs.archivebox_ref || github.event.client_payload.ref || 'dev' }}
+  group: debian-archivebox
   cancel-in-progress: false
 
 jobs:
@@ -27,9 +27,16 @@ jobs:
           fetch-depth: 1
 
       - name: Resolve ArchiveBox ref
+        env:
+          ARCHIVEBOX_DISPATCH_SHA: ${{ github.event.client_payload.sha || '' }}
         run: |
+          set -Eeuo pipefail
           REF="${{ github.event.inputs.archivebox_ref || github.event.client_payload.ref || 'dev' }}"
           echo "ARCHIVEBOX_REF=$REF" >> "$GITHUB_ENV"
+          if [[ -n "$ARCHIVEBOX_DISPATCH_SHA" ]]; then
+            [[ "$ARCHIVEBOX_DISPATCH_SHA" =~ ^[0-9a-f]{40}$ ]]
+          fi
+          echo "ARCHIVEBOX_EXPECTED_SHA=$ARCHIVEBOX_DISPATCH_SHA" >> "$GITHUB_ENV"
           VERSION="${{ github.event.client_payload.version || '' }}"
           WHEEL_URL="${{ github.event.client_payload.wheel_url || '' }}"
           if [[ -n "$WHEEL_URL" ]]; then

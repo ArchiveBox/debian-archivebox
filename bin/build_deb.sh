@@ -35,6 +35,16 @@ if ! git clone --depth 1 --branch "$ARCHIVEBOX_REF" "$ARCHIVEBOX_REPO_URL" "$UPS
 fi
 
 ARCHIVEBOX_UPSTREAM_SHA="$(git -C "$UPSTREAM_DIR" rev-parse HEAD)"
+if [[ -n "${ARCHIVEBOX_EXPECTED_SHA:-}" ]]; then
+    [[ "$ARCHIVEBOX_EXPECTED_SHA" =~ ^[0-9a-f]{40}$ ]] || {
+        echo "[X] ARCHIVEBOX_EXPECTED_SHA must be a full 40-character commit SHA." >&2
+        exit 1
+    }
+    [[ "$ARCHIVEBOX_UPSTREAM_SHA" == "$ARCHIVEBOX_EXPECTED_SHA" ]] || {
+        echo "[X] ArchiveBox ${ARCHIVEBOX_REF} resolved to ${ARCHIVEBOX_UPSTREAM_SHA}, expected ${ARCHIVEBOX_EXPECTED_SHA}." >&2
+        exit 1
+    }
+fi
 ARCHIVEBOX_UPSTREAM_SHORT_SHA="${ARCHIVEBOX_UPSTREAM_SHA:0:12}"
 ARCHIVEBOX_COMMIT_TS="$(git -C "$UPSTREAM_DIR" show -s --format=%ct HEAD)"
 ARCHIVEBOX_VERSION="$(
