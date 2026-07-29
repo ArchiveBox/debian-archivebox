@@ -8,16 +8,14 @@ on:
         required: false
         default: "dev"
   repository_dispatch:
-    types: [archivebox-dev-updated]
-  schedule:
-    - cron: "*/30 * * * *"
+    types: [archivebox-release]
 
 permissions:
   contents: write
 
 concurrency:
   group: debian-archivebox-${{ github.event.inputs.archivebox_ref || github.event.client_payload.ref || 'dev' }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:
