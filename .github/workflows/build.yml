@@ -7,6 +7,15 @@ on:
         description: "ArchiveBox ref to package"
         required: false
         default: "dev"
+      archivebox_sha:
+        description: "Exact ArchiveBox commit SHA"
+        required: false
+      archivebox_version:
+        description: "Exact ArchiveBox version"
+        required: false
+      archivebox_wheel_url:
+        description: "Verified ArchiveBox wheel URL"
+        required: false
   repository_dispatch:
     types: [archivebox-release]
 
@@ -28,17 +37,17 @@ jobs:
 
       - name: Resolve ArchiveBox ref
         env:
-          ARCHIVEBOX_DISPATCH_SHA: ${{ github.event.client_payload.sha || '' }}
+          ARCHIVEBOX_DISPATCH_SHA: ${{ inputs.archivebox_sha || github.event.client_payload.sha || '' }}
         run: |
           set -Eeuo pipefail
-          REF="${{ github.event.inputs.archivebox_ref || github.event.client_payload.ref || 'dev' }}"
+          REF="${{ inputs.archivebox_ref || github.event.client_payload.ref || 'dev' }}"
           echo "ARCHIVEBOX_REF=$REF" >> "$GITHUB_ENV"
           if [[ -n "$ARCHIVEBOX_DISPATCH_SHA" ]]; then
             [[ "$ARCHIVEBOX_DISPATCH_SHA" =~ ^[0-9a-f]{40}$ ]]
           fi
           echo "ARCHIVEBOX_EXPECTED_SHA=$ARCHIVEBOX_DISPATCH_SHA" >> "$GITHUB_ENV"
-          VERSION="${{ github.event.client_payload.version || '' }}"
-          WHEEL_URL="${{ github.event.client_payload.wheel_url || '' }}"
+          VERSION="${{ inputs.archivebox_version || github.event.client_payload.version || '' }}"
+          WHEEL_URL="${{ inputs.archivebox_wheel_url || github.event.client_payload.wheel_url || '' }}"
           if [[ -n "$WHEEL_URL" ]]; then
             echo "ARCHIVEBOX_PIP_SPEC=$WHEEL_URL" >> "$GITHUB_ENV"
           elif [[ -n "$VERSION" ]]; then
@@ -50,12 +59,12 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if [[ "$GITHUB_EVENT_NAME" != "repository_dispatch" ]]; then
+          SHA="$ARCHIVEBOX_EXPECTED_SHA"
+          if [[ -z "$SHA" ]]; then
             echo "exists=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
-          SHA="${{ github.event.client_payload.sha }}"
           [[ "$SHA" =~ ^[0-9a-f]{40}$ ]]
           TAG="dev-${SHA:0:12}"
           if gh release view "$TAG" >/dev/null 2>&1; then
