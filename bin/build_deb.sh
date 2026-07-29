@@ -51,7 +51,11 @@ print(match.group(1))
 PY
 )"
 
-ARCHIVEBOX_PIP_SPEC="${ARCHIVEBOX_PIP_SPEC:-archivebox @ https://github.com/ArchiveBox/ArchiveBox/archive/${ARCHIVEBOX_UPSTREAM_SHA}.tar.gz}"
+if [[ -z "${ARCHIVEBOX_PIP_SPEC:-}" && "$ARCHIVEBOX_VERSION" == *rc[0-9]* ]]; then
+    ARCHIVEBOX_PIP_SPEC="archivebox==${ARCHIVEBOX_VERSION}"
+else
+    ARCHIVEBOX_PIP_SPEC="${ARCHIVEBOX_PIP_SPEC:-archivebox @ https://github.com/ArchiveBox/ArchiveBox/archive/${ARCHIVEBOX_UPSTREAM_SHA}.tar.gz}"
+fi
 ARCHIVEBOX_UV_PRERELEASE="${ARCHIVEBOX_UV_PRERELEASE:-}"
 if [[ -z "$ARCHIVEBOX_UV_PRERELEASE" && "$ARCHIVEBOX_PIP_SPEC" == *rc[0-9]* ]]; then
     ARCHIVEBOX_UV_PRERELEASE=allow
