@@ -105,7 +105,6 @@ echo "    $ARCHIVEBOX_PIP_SPEC"
     --python "$ARCHIVEBOX_VENV/bin/python" \
     --upgrade \
     --compile-bytecode \
-    --only-binary archivebox \
     "$ARCHIVEBOX_PIP_SPEC"
 
 echo "[√] ArchiveBox installed."

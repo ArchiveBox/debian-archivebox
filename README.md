@@ -52,8 +52,9 @@ sudo apt install ./dist/archivebox_*.deb
 ```
 
 `ARCHIVEBOX_VERSION` is the only ArchiveBox release input. The package stores
-that version in `/opt/archivebox/package.env` and installs its exact wheel; it
-never clones, embeds, or builds the ArchiveBox source tree.
+that version in `/opt/archivebox/package.env` and installs
+`archivebox==VERSION` from PyPI; it never clones or embeds the ArchiveBox source
+tree.
 
 Before publishing, CI verifies the built package on an Ubuntu GitHub Actions
 runner by installing the `.deb` with `apt`, running the installed
