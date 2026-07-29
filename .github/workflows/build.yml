@@ -31,7 +31,10 @@ jobs:
           REF="${{ github.event.inputs.archivebox_ref || github.event.client_payload.ref || 'dev' }}"
           echo "ARCHIVEBOX_REF=$REF" >> "$GITHUB_ENV"
           VERSION="${{ github.event.client_payload.version || '' }}"
-          if [[ -n "$VERSION" ]]; then
+          WHEEL_URL="${{ github.event.client_payload.wheel_url || '' }}"
+          if [[ -n "$WHEEL_URL" ]]; then
+            echo "ARCHIVEBOX_PIP_SPEC=$WHEEL_URL" >> "$GITHUB_ENV"
+          elif [[ -n "$VERSION" ]]; then
             echo "ARCHIVEBOX_PIP_SPEC=archivebox==$VERSION" >> "$GITHUB_ENV"
           fi
 
