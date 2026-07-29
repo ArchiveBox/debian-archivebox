@@ -16,8 +16,6 @@ on:
       archivebox_wheel_url:
         description: "Verified ArchiveBox wheel URL"
         required: false
-  repository_dispatch:
-    types: [archivebox-release]
 
 permissions:
   contents: write
@@ -37,17 +35,17 @@ jobs:
 
       - name: Resolve ArchiveBox ref
         env:
-          ARCHIVEBOX_DISPATCH_SHA: ${{ inputs.archivebox_sha || github.event.client_payload.sha || '' }}
+          ARCHIVEBOX_DISPATCH_SHA: ${{ inputs.archivebox_sha }}
         run: |
           set -Eeuo pipefail
-          REF="${{ inputs.archivebox_ref || github.event.client_payload.ref || 'dev' }}"
+          REF="${{ inputs.archivebox_ref }}"
           echo "ARCHIVEBOX_REF=$REF" >> "$GITHUB_ENV"
           if [[ -n "$ARCHIVEBOX_DISPATCH_SHA" ]]; then
             [[ "$ARCHIVEBOX_DISPATCH_SHA" =~ ^[0-9a-f]{40}$ ]]
           fi
           echo "ARCHIVEBOX_EXPECTED_SHA=$ARCHIVEBOX_DISPATCH_SHA" >> "$GITHUB_ENV"
-          VERSION="${{ inputs.archivebox_version || github.event.client_payload.version || '' }}"
-          WHEEL_URL="${{ inputs.archivebox_wheel_url || github.event.client_payload.wheel_url || '' }}"
+          VERSION="${{ inputs.archivebox_version }}"
+          WHEEL_URL="${{ inputs.archivebox_wheel_url }}"
           if [[ -n "$WHEEL_URL" ]]; then
             echo "ARCHIVEBOX_PIP_SPEC=$WHEEL_URL" >> "$GITHUB_ENV"
           elif [[ -n "$VERSION" ]]; then
