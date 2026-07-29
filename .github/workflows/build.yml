@@ -38,7 +38,28 @@ jobs:
             echo "ARCHIVEBOX_PIP_SPEC=archivebox==$VERSION" >> "$GITHUB_ENV"
           fi
 
+      - name: Check for an existing dispatched release
+        id: published
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [[ "$GITHUB_EVENT_NAME" != "repository_dispatch" ]]; then
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          SHA="${{ github.event.client_payload.sha }}"
+          [[ "$SHA" =~ ^[0-9a-f]{40}$ ]]
+          TAG="dev-${SHA:0:12}"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+            echo "[i] Release $TAG already exists."
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Install build tools
+        if: steps.published.outputs.exists != 'true'
         run: |
           sudo apt-get update
           sudo apt-get install -y dpkg-dev
@@ -48,24 +69,19 @@ jobs:
           nfpm --version
 
       - name: Build .deb
+        if: steps.published.outputs.exists != 'true'
         run: ./bin/build_deb.sh
 
       - name: Load build metadata
+        if: steps.published.outputs.exists != 'true'
         run: cat dist/build.env >> "$GITHUB_ENV"
 
-      - name: Skip already-published scheduled build
-        id: published
-        env:
-          GH_TOKEN: ${{ github.token }}
+      - name: Record release tag
+        if: steps.published.outputs.exists != 'true'
+        id: release-tag
         run: |
           TAG="dev-${ARCHIVEBOX_UPSTREAM_SHORT_SHA}"
           echo "tag=$TAG" >> "$GITHUB_OUTPUT"
-          if [[ "$GITHUB_EVENT_NAME" != "workflow_dispatch" ]] && gh release view "$TAG" >/dev/null 2>&1; then
-            echo "exists=true" >> "$GITHUB_OUTPUT"
-            echo "[i] Release $TAG already exists."
-          else
-            echo "exists=false" >> "$GITHUB_OUTPUT"
-          fi
 
       - name: Verify package metadata
         if: steps.published.outputs.exists != 'true'
@@ -157,7 +173,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          TAG="${{ steps.published.outputs.tag }}"
+          TAG="${{ steps.release-tag.outputs.tag }}"
           if gh release view "$TAG" >/dev/null 2>&1; then
             gh release upload "$TAG" dist/*.deb dist/build.env --clobber
           else
