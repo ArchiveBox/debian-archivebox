@@ -97,11 +97,12 @@ PY
 fi
 
 echo "[+] Creating ArchiveBox virtualenv in $ARCHIVEBOX_VENV..."
-"$ARCHIVEBOX_UV" venv "$ARCHIVEBOX_VENV" --python 3.13 --seed --allow-existing
+"$ARCHIVEBOX_UV" venv --no-cache "$ARCHIVEBOX_VENV" --python 3.13 --seed --allow-existing
 
 echo "[+] Installing ArchiveBox with uv pip:"
 echo "    $ARCHIVEBOX_PIP_SPEC"
 "$ARCHIVEBOX_UV" pip install \
+    --no-cache \
     --python "$ARCHIVEBOX_VENV/bin/python" \
     --upgrade \
     --compile-bytecode \
