@@ -39,6 +39,9 @@ jobs:
             | sudo tar -xz -C /usr/local/bin nfpm
           nfpm --version
 
+      - name: Test apt repository update
+        run: ./tests/test_update_apt_repo.sh
+
       - name: Build .deb
         run: ./bin/build_deb.sh
 

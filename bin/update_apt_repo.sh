@@ -22,6 +22,7 @@ if ! command -v dpkg-scanpackages >/dev/null 2>&1; then
 fi
 
 mkdir -p "$POOL_DIR"
+find "$POOL_DIR" -maxdepth 1 -type f -name 'archivebox_*.deb' -delete
 for deb in "$@"; do
     cp "$deb" "$POOL_DIR/"
 done
