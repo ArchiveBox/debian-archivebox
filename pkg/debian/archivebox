@@ -50,6 +50,13 @@ set_root_runtime_for_cwd_owner() {
     data_home="$(user_home_for_uid "$data_uid")"
     data_user="$(user_name_for_uid "$data_uid")"
 
+    if [[ "$data_uid" == "0" ]]; then
+        data_uid="$(id -u "$ARCHIVEBOX_USER")"
+        data_gid="$(id -g "$ARCHIVEBOX_USER")"
+        data_home="$(user_home_for_uid "$data_uid")"
+        data_user="$ARCHIVEBOX_USER"
+    fi
+
     [[ -n "$data_home" ]] || data_home="$ARCHIVEBOX_STATE_DIR"
     [[ -n "$data_user" ]] || data_user="$ARCHIVEBOX_USER"
 
@@ -78,7 +85,7 @@ repair_root_invocation_ownership() {
 
     [[ -n "$ARCHIVEBOX_DATA_UID" && -n "$ARCHIVEBOX_DATA_GID" ]] || return 0
 
-    for path in "." "$XDG_CONFIG_HOME/abx" "$XDG_RUNTIME_DIR"; do
+    for path in "$XDG_CONFIG_HOME/abx" "$XDG_RUNTIME_DIR"; do
         [[ -e "$path" ]] || continue
         find "$path" -xdev -user 0 -exec chown -h "$ARCHIVEBOX_DATA_UID:$ARCHIVEBOX_DATA_GID" {} +
     done
