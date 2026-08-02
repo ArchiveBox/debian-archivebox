@@ -1,0 +1,24 @@
+pkg/debian/scripts/postinstall.sh
+  s_69ddf154c10e6f::t_c945cde1ef0730 11
+pkg/debian/archivebox
+  s_69ddf154c10e6f::t_14eaf5e95d37a5 66-68
+  s_69ddf154c10e6f::t_c945cde1ef0730 26,65,69
+pkg/debian/install.sh
+  s_69ddf154c10e6f::t_c945cde1ef0730 43-44
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.20",
+  "base_commit_sha": "c25d83905033cbc6c7680d73a29d161874ac0633",
+  "prompts": {},
+  "sessions": {
+    "s_69ddf154c10e6f": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019faf8b-797c-7c30-9a89-b8c3ca8cc3e2",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Nick Sweeting <git@sweeting.me>"
+    }
+  }
+}
