@@ -40,7 +40,8 @@ if [[ "${EUID:-$(id -u)}" == "0" ]]; then
     chown -R "$ARCHIVEBOX_USER:$ARCHIVEBOX_USER" \
         "$ARCHIVEBOX_UV_BIN_DIR" \
         "$ARCHIVEBOX_VENV" \
-        "$UV_CACHE_DIR" \
+        "$UV_CACHE_DIR"
+    chown "$ARCHIVEBOX_USER:$ARCHIVEBOX_USER" \
         "$ARCHIVEBOX_USER_HOME/.local" \
         "$ARCHIVEBOX_USER_HOME/.cache" \
         "$ARCHIVEBOX_USER_HOME/.config"

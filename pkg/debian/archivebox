@@ -8,9 +8,6 @@ ARCHIVEBOX_USER="${ARCHIVEBOX_USER:-archivebox}"
 ARCHIVEBOX_STATE_DIR="${ARCHIVEBOX_STATE_DIR:-/var/lib/archivebox}"
 ARCHIVEBOX_CONFIG_DIR="${ARCHIVEBOX_CONFIG_DIR:-$ARCHIVEBOX_STATE_DIR/.config}"
 ARCHIVEBOX_RUNTIME_DIR="${ARCHIVEBOX_RUNTIME_DIR:-$ARCHIVEBOX_STATE_DIR/.runtime}"
-ARCHIVEBOX_DATA_UID=""
-ARCHIVEBOX_DATA_GID=""
-ARCHIVEBOX_DATA_HOME=""
 
 if [[ ! -x "$ARCHIVEBOX_VENV/bin/archivebox" ]]; then
     echo "Error: ArchiveBox is not installed in $ARCHIVEBOX_VENV" >&2
@@ -26,8 +23,7 @@ ensure_archivebox_system_user() {
 
 ensure_archivebox_state_dirs() {
     mkdir -p "$ARCHIVEBOX_STATE_DIR" "$ARCHIVEBOX_CONFIG_DIR" "$ARCHIVEBOX_RUNTIME_DIR"
-    chown "$ARCHIVEBOX_USER:$ARCHIVEBOX_USER" "$ARCHIVEBOX_STATE_DIR"
-    chown -R "$ARCHIVEBOX_USER:$ARCHIVEBOX_USER" "$ARCHIVEBOX_CONFIG_DIR" "$ARCHIVEBOX_RUNTIME_DIR"
+    chown "$ARCHIVEBOX_USER:$ARCHIVEBOX_USER" "$ARCHIVEBOX_STATE_DIR" "$ARCHIVEBOX_CONFIG_DIR" "$ARCHIVEBOX_RUNTIME_DIR"
     chmod 0755 "$ARCHIVEBOX_STATE_DIR"
     chmod 0700 "$ARCHIVEBOX_CONFIG_DIR" "$ARCHIVEBOX_RUNTIME_DIR"
 }
@@ -66,7 +62,11 @@ set_root_runtime_for_cwd_owner() {
     fi
 
     mkdir -p "$data_home/.config" "$runtime_dir"
-    chown "$data_uid:$data_gid" "$data_home/.config" "$runtime_dir"
+    for path in "$data_home/.config" "$data_home/.config/abx" "$data_home/.config/abx/lib" "$runtime_dir"; do
+        if [[ -e "$path" ]]; then
+            chown "$data_uid:$data_gid" "$path"
+        fi
+    done
     chmod 0700 "$runtime_dir"
 
     export HOME="$data_home"
@@ -75,20 +75,6 @@ set_root_runtime_for_cwd_owner() {
     export XDG_CONFIG_HOME="$data_home/.config"
     export XDG_RUNTIME_DIR="$runtime_dir"
 
-    ARCHIVEBOX_DATA_UID="$data_uid"
-    ARCHIVEBOX_DATA_GID="$data_gid"
-    ARCHIVEBOX_DATA_HOME="$data_home"
-}
-
-repair_root_invocation_ownership() {
-    local path
-
-    [[ -n "$ARCHIVEBOX_DATA_UID" && -n "$ARCHIVEBOX_DATA_GID" ]] || return 0
-
-    for path in "$XDG_CONFIG_HOME/abx" "$XDG_RUNTIME_DIR"; do
-        [[ -e "$path" ]] || continue
-        find "$path" -xdev -user 0 -exec chown -h "$ARCHIVEBOX_DATA_UID:$ARCHIVEBOX_DATA_GID" {} +
-    done
 }
 
 CURRENT_USER="$(id -un 2>/dev/null || true)"
@@ -107,15 +93,5 @@ elif [[ "$CURRENT_USER" == "$ARCHIVEBOX_USER" ]]; then
 fi
 
 export PATH="$ARCHIVEBOX_VENV/bin:$ARCHIVEBOX_UV_BIN:$PATH"
-
-if [[ "${EUID:-$(id -u)}" == "0" ]]; then
-    set +e
-    "$ARCHIVEBOX_VENV/bin/archivebox" "$@"
-    status="$?"
-    set -e
-
-    repair_root_invocation_ownership
-    exit "$status"
-fi
 
 exec "$ARCHIVEBOX_VENV/bin/archivebox" "$@"
