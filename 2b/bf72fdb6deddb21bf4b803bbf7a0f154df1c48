@@ -1,0 +1,21 @@
+.github/workflows/build.yml
+  s_69ddf154c10e6f::t_a679bf02c5e10d 170
+tests/test_update_apt_repo.sh
+  s_69ddf154c10e6f::t_a679bf02c5e10d 10-12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "2bbf72fdb6deddb21bf4b803bbf7a0f154df1c48",
+  "prompts": {},
+  "sessions": {
+    "s_69ddf154c10e6f": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019faf8b-797c-7c30-9a89-b8c3ca8cc3e2",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Nick Sweeting <git@sweeting.me>"
+    }
+  }
+}
