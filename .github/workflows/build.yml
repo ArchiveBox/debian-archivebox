@@ -167,7 +167,7 @@ jobs:
           path: dist/*.deb
 
       - name: Publish GitHub release
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/main' && !contains(inputs.archivebox_version, 'rc')
         env:
           GH_TOKEN: ${{ github.token }}
         run: |

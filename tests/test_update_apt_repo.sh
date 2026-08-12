@@ -7,6 +7,9 @@ REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 WORK_DIR="$(mktemp -d)"
 trap 'rm -rf "$WORK_DIR"' EXIT
 
+grep -Fq "if: github.ref == 'refs/heads/main' && !contains(inputs.archivebox_version, 'rc')" \
+    "$REPO_DIR/.github/workflows/build.yml"
+
 build_deb() {
     local version="$1"
     local package_dir="$WORK_DIR/package-$version"
