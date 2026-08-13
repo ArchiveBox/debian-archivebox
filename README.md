@@ -26,7 +26,7 @@ Then initialize an archive:
 mkdir -p ~/archivebox/data && cd ~/archivebox/data
 archivebox init           # initialize a new collection in the current dir
 archivebox version        # see version of all detected installed dependencies
-archivebox install        # use sudo to get apt dependencies auto-installed too
+archivebox install        # install managed plugin dependencies for this collection
 archivebox add 'https://example.com'
 ```
 
