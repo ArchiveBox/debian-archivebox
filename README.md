@@ -10,7 +10,7 @@ The package is just a thin apt wrapper around the normal Python install flow, it
 3. `uv` resolves Python 3.13 from the host or its normal managed-Python
    location for the `archivebox` system user.
 4. `uv pip install` installs ArchiveBox into `/opt/archivebox/venv`.
-5. Runtime extractor/plugin dependencies remain managed by `archivebox install`, and only your selected plugin dependencies are lazy-installed on first use.
+5. `archivebox install` installs the runtime dependencies for all enabled extractor plugins.
 
 ## Install
 
