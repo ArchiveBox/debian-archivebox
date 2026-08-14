@@ -20,12 +20,12 @@ sudo apt update
 sudo apt install archivebox
 ```
 
-The systemd service uses `/var/lib/archivebox` as its collection. Create its
-admin user, then start the service:
+The systemd service uses `/var/lib/archivebox` as its collection. Start it to
+initialize the collection, then create its admin user:
 
 ```bash
-sudo -u archivebox -H bash -lc 'cd /var/lib/archivebox && archivebox manage createsuperuser'
 sudo systemctl enable --now archivebox
+sudo -u archivebox -H bash -lc 'cd /var/lib/archivebox && archivebox manage createsuperuser'
 ```
 
 The package creates the `archivebox` system user and the state/config/runtime
