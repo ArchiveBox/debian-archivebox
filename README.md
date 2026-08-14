@@ -20,21 +20,28 @@ sudo apt update
 sudo apt install archivebox
 ```
 
-Then initialize an archive:
+The systemd service uses `/var/lib/archivebox` as its collection. Create its
+admin user, then start the service:
 
 ```bash
-mkdir -p ~/archivebox/data && cd ~/archivebox/data
-archivebox init           # initialize a new collection in the current dir
-archivebox version        # see version of all detected installed dependencies
-archivebox install        # install managed plugin dependencies for this collection
-archivebox add 'https://example.com'
+sudo -u archivebox -H bash -lc 'cd /var/lib/archivebox && archivebox manage createsuperuser'
+sudo systemctl enable --now archivebox
 ```
 
 The package creates the `archivebox` system user and the state/config/runtime
-directories needed for systemd usage. Regular users can keep archives anywhere
-they own; usually only `archivebox install` is needed to get all plugin dependencies, 
-but if you are missing some runtime apt dependencies, then you can run `sudo archivebox install` 
-to get them (don't worry, it wont leave the collection owned by root).
+directories needed for systemd usage. To use a separate personal collection
+instead, run the normal commands in a directory you own:
+
+```bash
+mkdir -p ~/archivebox/data && cd ~/archivebox/data
+archivebox init
+archivebox install
+archivebox add 'https://example.com'
+```
+
+If managed plugin installation needs system packages, run `sudo archivebox
+install` from the collection directory. The wrapper drops privileges to the
+collection owner and does not recursively change collection ownership.
 
 <br/>
 
