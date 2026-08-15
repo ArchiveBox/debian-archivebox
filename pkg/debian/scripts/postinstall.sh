@@ -21,6 +21,7 @@ if command -v systemctl >/dev/null 2>&1 && [[ -d /run/systemd/system ]]; then
         systemctl start archivebox 2>/dev/null || true
         echo "[+] Started archivebox service"
     else
+        echo "[i] Install dependencies: cd /var/lib/archivebox && sudo archivebox install"
         echo "[i] To start ArchiveBox: sudo systemctl start archivebox"
         echo "[i] To enable on boot:   sudo systemctl enable archivebox"
     fi
