@@ -15,18 +15,23 @@ SUITE="${APT_SUITE:-dev}"
 COMPONENT="${APT_COMPONENT:-main}"
 POOL_DIR="$REPO_DIR/pool/main/a/archivebox"
 DIST_DIR="$REPO_DIR/dists/$SUITE"
+SCAN_DIR="$(mktemp -d "$REPO_DIR/.apt-index.XXXXXX")"
+SCAN_POOL="$SCAN_DIR/pool/main/a/archivebox"
+trap 'rm -rf "$SCAN_DIR"' EXIT
 
 if ! command -v dpkg-scanpackages >/dev/null 2>&1; then
     echo "[X] dpkg-scanpackages is required. Install dpkg-dev." >&2
     exit 1
 fi
 
-mkdir -p "$POOL_DIR"
+mkdir -p "$POOL_DIR" "$SCAN_POOL"
 for deb in "$@"; do
-    cp "$deb" "$POOL_DIR/"
+    stored_deb="$POOL_DIR/$(basename "$deb")"
+    cp "$deb" "$stored_deb"
+    ln "$stored_deb" "$SCAN_POOL/$(basename "$deb")"
 done
 
-cd "$REPO_DIR"
+cd "$SCAN_DIR"
 for arch in amd64 arm64 all; do
     packages_dir="$DIST_DIR/$COMPONENT/binary-$arch"
     mkdir -p "$packages_dir"
