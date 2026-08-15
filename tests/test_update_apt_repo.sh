@@ -37,11 +37,11 @@ NEW_DEB="$(build_deb '0.9.35~rc190')"
 "$REPO_DIR/bin/update_apt_repo.sh" "$APT_REPO" "$NEW_DEB"
 
 PACKAGES="$APT_REPO/dists/dev/main/binary-all/Packages"
-test "$(find "$APT_REPO/pool/main/a/archivebox" -maxdepth 1 -type f -name 'archivebox_*.deb' | wc -l)" -eq 1
+test "$(find "$APT_REPO/pool/main/a/archivebox" -maxdepth 1 -type f -name 'archivebox_*.deb' | wc -l)" -eq 2
 grep -Fx 'Version: 0.9.35~rc190' "$PACKAGES"
 if grep -Fq 'Version: 0.9.35rc175~dev1785342002' "$PACKAGES"; then
     echo '[X] Obsolete ArchiveBox package remained in the apt index.' >&2
     exit 1
 fi
 
-echo '[√] Apt repository contains only the latest ArchiveBox package.'
+echo '[√] Apt repository indexes the latest package and preserves previous files.'

@@ -22,7 +22,6 @@ if ! command -v dpkg-scanpackages >/dev/null 2>&1; then
 fi
 
 mkdir -p "$POOL_DIR"
-find "$POOL_DIR" -maxdepth 1 -type f -name 'archivebox_*.deb' -delete
 for deb in "$@"; do
     cp "$deb" "$POOL_DIR/"
 done
@@ -31,7 +30,7 @@ cd "$REPO_DIR"
 for arch in amd64 arm64 all; do
     packages_dir="$DIST_DIR/$COMPONENT/binary-$arch"
     mkdir -p "$packages_dir"
-    dpkg-scanpackages --multiversion pool /dev/null > "$packages_dir/Packages"
+    dpkg-scanpackages pool /dev/null > "$packages_dir/Packages"
     gzip -9kf "$packages_dir/Packages"
 done
 
