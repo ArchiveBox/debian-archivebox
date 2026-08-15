@@ -1,0 +1,16 @@
+bin/update_apt_repo.sh
+  h_923c208e183a7b 33
+tests/test_update_apt_repo.sh
+  h_923c208e183a7b 40,47
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "3e3223bd9675613ff7ce114402cae89255d707cc",
+  "prompts": {},
+  "humans": {
+    "h_923c208e183a7b": {
+      "author": "Nick Sweeting <git@sweeting.me>"
+    }
+  }
+}
