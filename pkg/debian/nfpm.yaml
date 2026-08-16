@@ -50,6 +50,11 @@ contents:
     file_info:
       mode: 0755
 
+  - dst: /var/lib/archivebox/data
+    type: dir
+    file_info:
+      mode: 0755
+
 scripts:
   postinstall: pkg/debian/scripts/postinstall.sh
   preremove: pkg/debian/scripts/preremove.sh

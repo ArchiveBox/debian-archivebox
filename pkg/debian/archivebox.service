@@ -6,7 +6,7 @@ After=network.target
 Type=simple
 User=archivebox
 Group=archivebox
-WorkingDirectory=/var/lib/archivebox
+WorkingDirectory=/var/lib/archivebox/data
 Environment="PATH=/opt/archivebox/venv/bin:/opt/archivebox/uv/bin:/usr/local/bin:/usr/bin:/bin"
 ExecStartPre=/usr/bin/archivebox init
 ExecStart=/usr/bin/archivebox server 0.0.0.0:8000

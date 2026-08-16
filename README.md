@@ -20,14 +20,14 @@ sudo apt update
 sudo apt install archivebox
 ```
 
-The systemd service uses `/var/lib/archivebox` as its collection. Install the
+The systemd service uses `/var/lib/archivebox/data` as its collection. Install the
 extractor dependencies before starting it, then create its admin user:
 
 ```bash
-cd /var/lib/archivebox
+cd /var/lib/archivebox/data
 sudo archivebox install
 sudo systemctl enable --now archivebox
-sudo -u archivebox -H bash -lc 'cd /var/lib/archivebox && archivebox manage createsuperuser'
+sudo -u archivebox -H bash -lc 'cd /var/lib/archivebox/data && archivebox manage createsuperuser'
 ```
 
 The package creates the `archivebox` system user and the state/config/runtime

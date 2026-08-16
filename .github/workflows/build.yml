@@ -112,23 +112,26 @@ jobs:
 
           sudo bash -lc '
             set -Eeuo pipefail
-            mkdir -p /root/archivebox-ci/data
-            cd /root/archivebox-ci/data
+            cd /var/lib/archivebox/data
             archivebox init
             timeout 30m archivebox install
             archivebox status
             test "$(stat -c %U .)" = archivebox
-            test "$(stat -c %U /root)" = root
-            test "$(stat -c %G /root)" = archivebox
-            test -n "$(find /root -maxdepth 0 -perm /0010 -print)"
-            test -z "$(find /root -maxdepth 0 -perm /0001 -print)"
-            sudo -u archivebox sh -c "cd /root/archivebox-ci/data && archivebox status"
+            sudo -u archivebox sh -c "cd /var/lib/archivebox/data && archivebox status"
             if find . -user root -print -quit | grep -q .; then
               echo "[X] Root invocation left root-owned collection files behind:" >&2
               find . -user root -ls >&2
               exit 1
             fi
           '
+
+          sudo systemctl start archivebox
+          for _ in {1..30}; do
+            curl -fsS http://127.0.0.1:8000/ >/dev/null && break
+            sleep 1
+          done
+          curl -fsS http://127.0.0.1:8000/ >/dev/null
+          sudo systemctl stop archivebox
 
           (
             mkdir -p "$HOME/archivebox/data" && cd "$HOME/archivebox/data"

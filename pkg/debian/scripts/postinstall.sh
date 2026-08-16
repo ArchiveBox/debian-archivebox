@@ -7,8 +7,8 @@ if ! id -u archivebox >/dev/null 2>&1; then
     echo "[+] Created archivebox system user"
 fi
 
-mkdir -p /var/lib/archivebox/.config /var/lib/archivebox/.runtime
-chown archivebox:archivebox /var/lib/archivebox /var/lib/archivebox/.config /var/lib/archivebox/.runtime
+mkdir -p /var/lib/archivebox/.config /var/lib/archivebox/.runtime /var/lib/archivebox/data
+chown archivebox:archivebox /var/lib/archivebox /var/lib/archivebox/.config /var/lib/archivebox/.runtime /var/lib/archivebox/data
 chmod 0755 /var/lib/archivebox
 chmod 0700 /var/lib/archivebox/.config /var/lib/archivebox/.runtime
 
@@ -21,7 +21,7 @@ if command -v systemctl >/dev/null 2>&1 && [[ -d /run/systemd/system ]]; then
         systemctl start archivebox 2>/dev/null || true
         echo "[+] Started archivebox service"
     else
-        echo "[i] Install dependencies: cd /var/lib/archivebox && sudo archivebox install"
+        echo "[i] Install dependencies: cd /var/lib/archivebox/data && sudo archivebox install"
         echo "[i] To start ArchiveBox: sudo systemctl start archivebox"
         echo "[i] To enable on boot:   sudo systemctl enable archivebox"
     fi
