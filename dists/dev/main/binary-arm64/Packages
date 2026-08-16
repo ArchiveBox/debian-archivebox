@@ -6,10 +6,10 @@ Installed-Size: 7
 Depends: ca-certificates, curl
 Recommends: git, wget
 Filename: pool/main/a/archivebox/archivebox_0.9.35~rc293_all.deb
-Size: 3980
-MD5sum: beff313c45232fbe051c5148a01e6e47
-SHA1: 114731432993fbef2f85a2bcc4d38675ac8ccd32
-SHA256: ff03f029469b1dda5b058c7261641328e49e349f2af8fce26825d3b6ea3d0421
+Size: 4010
+MD5sum: 7a277a9df1b6329a57d503635b16f6c3
+SHA1: ee91936c7d185d37b9379d29c197c9758dc163fd
+SHA256: 9b3b4716c17ea3fc765fbda006c932b1be1923d78a78c05a4ba946fb858063a7
 Section: web
 Priority: optional
 Homepage: https://archivebox.io
