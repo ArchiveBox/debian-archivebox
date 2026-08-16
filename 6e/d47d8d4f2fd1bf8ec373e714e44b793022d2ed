@@ -1,0 +1,22 @@
+.github/workflows/build.yml
+  h_923c208e183a7b 115,120,128-135
+README.md
+  h_923c208e183a7b 23,27,30
+pkg/debian/archivebox.service
+  h_923c208e183a7b 9
+pkg/debian/nfpm.yaml
+  h_923c208e183a7b 53-57
+pkg/debian/scripts/postinstall.sh
+  h_923c208e183a7b 10-11,24
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "6ed47d8d4f2fd1bf8ec373e714e44b793022d2ed",
+  "prompts": {},
+  "humans": {
+    "h_923c208e183a7b": {
+      "author": "Nick Sweeting <git@sweeting.me>"
+    }
+  }
+}
