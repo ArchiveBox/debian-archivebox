@@ -33,7 +33,7 @@ jobs:
       - name: Install build tools
         run: |
           sudo apt-get update
-          sudo apt-get install -y dpkg-dev
+          sudo apt-get install -y dpkg-dev jq
           NFPM_VERSION="2.45.1"
           curl -fsSL "https://github.com/goreleaser/nfpm/releases/download/v${NFPM_VERSION}/nfpm_${NFPM_VERSION}_Linux_x86_64.tar.gz" \
             | sudo tar -xz -C /usr/local/bin nfpm
@@ -44,6 +44,12 @@ jobs:
 
       - name: Build .deb
         run: ./bin/build_deb.sh
+
+      - name: Verify exact PyPI wheel wrapper
+        run: |
+          DEB_FILES=(dist/*.deb)
+          test "${#DEB_FILES[@]}" -eq 1
+          ./tests/test_pypi_wrapper.sh "${DEB_FILES[0]}" "$ARCHIVEBOX_VERSION"
 
       - name: Load build metadata
         run: cat dist/build.env >> "$GITHUB_ENV"

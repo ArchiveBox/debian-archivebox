@@ -9,7 +9,7 @@ The package is just a thin apt wrapper around the normal Python install flow, it
 2. `postinstall` installs the official prebuilt `uv` into `/opt/archivebox/uv`.
 3. `uv` resolves Python 3.13 from the host or its normal managed-Python
    location for the `archivebox` system user.
-4. `uv pip install` installs ArchiveBox into `/opt/archivebox/venv`.
+4. `uv pip install` installs the exact PyPI wheel and SHA-256 selected at package build time into `/opt/archivebox/venv`.
 5. `archivebox install` installs the runtime dependencies for all enabled extractor plugins.
 
 ## Install
@@ -56,14 +56,15 @@ collection owner and does not recursively change collection ownership.
 
 ```bash
 go install github.com/goreleaser/nfpm/v2/cmd/nfpm@latest
+# jq and curl are also required to resolve the exact published PyPI wheel
 ARCHIVEBOX_VERSION=0.9.35rc175 ./bin/build_deb.sh
 sudo apt install ./dist/archivebox_*.deb
 ```
 
-`ARCHIVEBOX_VERSION` is the only ArchiveBox release input. The package stores
-that version in `/opt/archivebox/package.env` and installs
-`archivebox==VERSION` from PyPI; it never clones or embeds the ArchiveBox source
-tree.
+`ARCHIVEBOX_VERSION` is the only ArchiveBox release input. The build resolves
+that version's unique wheel URL and SHA-256 from PyPI, stores them in
+`/opt/archivebox/package.env`, and installs that exact wheel; it never clones or
+embeds the ArchiveBox source tree.
 
 Before publishing, CI verifies the built package on an Ubuntu GitHub Actions
 runner by installing the `.deb` with `apt`, running the installed
