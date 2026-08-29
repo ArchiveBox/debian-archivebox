@@ -1,0 +1,28 @@
+pkg/debian/install.sh
+  s_642b68ba725e35::t_5b478db3d92404 23-25,64-65
+bin/build_deb.sh
+  s_642b68ba725e35::t_5b478db3d92404 18-24,31-48,59-60,66-67,84
+tests/test_pypi_wrapper.sh
+  s_642b68ba725e35::t_10f8c0bd791251 1-41
+.github/workflows/build.yml
+  s_642b68ba725e35::t_5b478db3d92404 36,48-52
+  s_642b68ba725e35::t_c466eb91fc5030 53
+README.md
+  s_642b68ba725e35::t_5b478db3d92404 12,59,64-67
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "8fa5e694b5925ff2219fcef87ef9590e8f6ef2fd",
+  "prompts": {},
+  "sessions": {
+    "s_642b68ba725e35": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a04a0a-b565-74f1-8977-ffe116acdf6e",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Nick Sweeting <git@sweeting.me>"
+    }
+  }
+}
