@@ -1,15 +1,15 @@
 Package: archivebox
-Version: 0.9.35~rc373
+Version: 0.9.35~rc374
 Architecture: all
 Maintainer: ArchiveBox <debian@archivebox.io>
 Installed-Size: 8
 Depends: ca-certificates, curl
 Recommends: git, wget
-Filename: pool/main/a/archivebox/archivebox_0.9.35~rc373_all.deb
-Size: 4208
-MD5sum: bcba148220fe87d67131f3b79db64cb2
-SHA1: 1d3a9ac0b9c143ada4d3cae116ad137141ea3808
-SHA256: d8ad3cd0f583b7e7c1fc8b04361d31d41345c2012fdb751d41a5aaa7a207ff79
+Filename: pool/main/a/archivebox/archivebox_0.9.35~rc374_all.deb
+Size: 4206
+MD5sum: 93340c9068db8ca0e99c77dc71880b85
+SHA1: 28154bbc11b73f1a00124aeb6e8a5ebb6b998ad0
+SHA256: fbae260c5bc604259f4a7f256ba52d5616e982696370175c3a64f43a21bee7c8
 Section: web
 Priority: optional
 Homepage: https://archivebox.io
