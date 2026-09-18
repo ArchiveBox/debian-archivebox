@@ -1,0 +1,16 @@
+.github/workflows/build.yml
+  h_923c208e183a7b 115,118,121-141,160
+pkg/debian/archivebox.service
+  h_923c208e183a7b 12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "eaecb8c306644dbda79211fb9dd4c994ed7106de",
+  "prompts": {},
+  "humans": {
+    "h_923c208e183a7b": {
+      "author": "Nick Sweeting <git@sweeting.me>"
+    }
+  }
+}
