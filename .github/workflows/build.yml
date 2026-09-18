@@ -95,27 +95,6 @@ jobs:
           </html>
           HTML
 
-          coproc FIXTURE_SERVER {
-            python3 -u -c '
-          from functools import partial
-          from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
-
-          handler = partial(
-              SimpleHTTPRequestHandler,
-              directory="/tmp/archivebox-ci-fixture",
-          )
-          server = ThreadingHTTPServer(("127.0.0.1", 18080), handler)
-          print("READY", flush=True)
-          server.serve_forever()
-          '
-          }
-          SERVER_PID="$FIXTURE_SERVER_PID"
-          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
-
-          read -r SERVER_READY <&"${FIXTURE_SERVER[0]}"
-          test "$SERVER_READY" = READY
-          curl -fsS http://127.0.0.1:18080/ >/dev/null
-
           sudo bash -lc '
             set -Eeuo pipefail
             cd /var/lib/archivebox/data
@@ -133,11 +112,32 @@ jobs:
 
           sudo systemctl start archivebox
           for _ in {1..30}; do
-            curl -fsS http://127.0.0.1:8000/ >/dev/null && break
+            curl -fsS http://127.0.0.1:5797/ >/dev/null && break
             sleep 1
           done
-          curl -fsS http://127.0.0.1:8000/ >/dev/null
+          curl -fsS http://127.0.0.1:5797/ >/dev/null
           sudo systemctl stop archivebox
+
+          coproc FIXTURE_SERVER {
+            python3 -u -c '
+          from functools import partial
+          from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
+
+          handler = partial(
+              SimpleHTTPRequestHandler,
+              directory="/tmp/archivebox-ci-fixture",
+          )
+          server = ThreadingHTTPServer(("127.0.0.1", 5797), handler)
+          print("READY", flush=True)
+          server.serve_forever()
+          '
+          }
+          SERVER_PID="$FIXTURE_SERVER_PID"
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+
+          read -r SERVER_READY <&"${FIXTURE_SERVER[0]}"
+          test "$SERVER_READY" = READY
+          curl -fsS http://127.0.0.1:5797/ >/dev/null
 
           (
             mkdir -p "$HOME/archivebox/data" && cd "$HOME/archivebox/data"
@@ -157,7 +157,7 @@ jobs:
               exit 1
             fi
 
-            timeout 10m archivebox add "http://127.0.0.1:18080/"
+            timeout 10m archivebox add "http://127.0.0.1:5797/"
             archivebox status
 
             test -s index.sqlite3
