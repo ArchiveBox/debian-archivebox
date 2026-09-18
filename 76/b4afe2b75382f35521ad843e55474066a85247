@@ -1,0 +1,23 @@
+.github/workflows/build.yml
+  s_ffefb637465167::t_2214fdfd4c8878 200
+website/index.html
+  s_ffefb637465167::t_34918cfdd5de56 1-42
+website/site-chrome.css
+  s_ffefb637465167::t_b4e36c3ee355e9 1-74
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "76b4afe2b75382f35521ad843e55474066a85247",
+  "prompts": {},
+  "sessions": {
+    "s_ffefb637465167": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a07a32-a857-7453-a522-512c1140b8a1",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "Nick Sweeting <git@sweeting.me>"
+    }
+  }
+}
