@@ -119,7 +119,7 @@ jobs:
           sudo systemctl stop archivebox
 
           coproc FIXTURE_SERVER {
-            python3 -u -c '
+            /opt/archivebox/uv/bin/uv run --no-project python -u -c '
           from functools import partial
           from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 
@@ -127,17 +127,16 @@ jobs:
               SimpleHTTPRequestHandler,
               directory="/tmp/archivebox-ci-fixture",
           )
-          server = ThreadingHTTPServer(("127.0.0.1", 5797), handler)
-          print("READY", flush=True)
+          server = ThreadingHTTPServer(("127.0.0.1", 0), handler)
+          print(f"http://127.0.0.1:{server.server_port}/", flush=True)
           server.serve_forever()
           '
           }
           SERVER_PID="$FIXTURE_SERVER_PID"
           trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
 
-          read -r SERVER_READY <&"${FIXTURE_SERVER[0]}"
-          test "$SERVER_READY" = READY
-          curl -fsS http://127.0.0.1:5797/ >/dev/null
+          read -r SERVER_URL <&"${FIXTURE_SERVER[0]}"
+          curl -fsS "$SERVER_URL" >/dev/null
 
           (
             mkdir -p "$HOME/archivebox/data" && cd "$HOME/archivebox/data"
@@ -157,7 +156,7 @@ jobs:
               exit 1
             fi
 
-            timeout 10m archivebox add "http://127.0.0.1:5797/"
+            timeout 10m archivebox add "$SERVER_URL"
             archivebox status
 
             test -s index.sqlite3
