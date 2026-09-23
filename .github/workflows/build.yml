@@ -21,7 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
-          fetch-depth: 1
+          fetch-depth: 0
 
       - name: Resolve ArchiveBox version
         run: |
@@ -174,15 +174,20 @@ jobs:
           name: archivebox-${{ env.ARCHIVEBOX_DEB_VERSION }}.deb
           path: dist/*.deb
 
+      - uses: actions/setup-node@v5
+        if: github.ref == 'refs/heads/main' && !contains(inputs.archivebox_version, 'rc')
+        with:
+          node-version: 22
       - name: Publish GitHub release
         if: github.ref == 'refs/heads/main' && !contains(inputs.archivebox_version, 'rc')
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           TAG="${{ steps.release-tag.outputs.tag }}"
+          node scripts/publish-release-notes.mjs
           gh release create "$TAG" dist/*.deb dist/build.env \
-            --title "ArchiveBox ${ARCHIVEBOX_VERSION}" \
-            --notes "Thin apt wrapper for archivebox==${ARCHIVEBOX_VERSION}"
+            --title "$TAG" \
+            --notes-file dist/release-notes.md
 
       - name: Publish apt repository
         if: github.ref == 'refs/heads/main'
