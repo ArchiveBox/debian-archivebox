@@ -1,15 +1,15 @@
 Package: archivebox
-Version: 0.9.56~rc27
+Version: 0.9.56~rc28
 Architecture: all
 Maintainer: ArchiveBox <debian@archivebox.io>
 Installed-Size: 8
 Depends: ca-certificates, curl
 Recommends: git, wget
-Filename: pool/main/a/archivebox/archivebox_0.9.56~rc27_all.deb
+Filename: pool/main/a/archivebox/archivebox_0.9.56~rc28_all.deb
 Size: 4210
-MD5sum: 8fc743cd9990fd80e92ec245539d7c70
-SHA1: ae36904fd4499685bf51faa69b24c8fff36ba98c
-SHA256: 7bc04494cb9b04959707249038c22118788055748bc6bb4418ae7632c33f90f4
+MD5sum: 06bf7446e63d6f1d6cd9935076d8af69
+SHA1: 37ba0eb2a83e8e85cb514f89dd4808d007c0db55
+SHA256: c7694e008243e99b35b589f9184b6051bd5683b5de53ddea76d5d39d07c42f04
 Section: web
 Priority: optional
 Homepage: https://archivebox.io
