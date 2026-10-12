@@ -11,7 +11,10 @@ BUILD_DIR="${BUILD_DIR:-$REPO_DIR/build}"
 DIST_DIR="${DIST_DIR:-$REPO_DIR/dist}"
 
 if [[ -z "$ARCHIVEBOX_VERSION" ]]; then
-    echo "[X] ARCHIVEBOX_VERSION is required." >&2
+    ARCHIVEBOX_VERSION="$(curl -fsSL https://pypi.org/pypi/archivebox/json | jq -er '.info.version')"
+fi
+if [[ ! "$ARCHIVEBOX_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+    echo "[X] Expected a stable version of ArchiveBox (X.Y.Z)." >&2
     exit 1
 fi
 

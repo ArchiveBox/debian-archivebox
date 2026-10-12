@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
     inputs:
       archivebox_version:
-        description: "Exact ArchiveBox version"
-        required: true
+        description: "Exact stable ArchiveBox version (defaults to latest PyPI)"
+        required: false
 
 permissions:
   contents: write
@@ -27,7 +27,6 @@ jobs:
         run: |
           set -Eeuo pipefail
           VERSION="${{ inputs.archivebox_version }}"
-          test -n "$VERSION"
           echo "ARCHIVEBOX_VERSION=$VERSION" >> "$GITHUB_ENV"
 
       - name: Install build tools
@@ -45,14 +44,14 @@ jobs:
       - name: Build .deb
         run: ./bin/build_deb.sh
 
+      - name: Load build metadata
+        run: cat dist/build.env >> "$GITHUB_ENV"
+
       - name: Verify exact PyPI wheel wrapper
         run: |
           DEB_FILES=(dist/*.deb)
           test "${#DEB_FILES[@]}" -eq 1
           ./tests/test_pypi_wrapper.sh "${DEB_FILES[0]}" "$ARCHIVEBOX_VERSION"
-
-      - name: Load build metadata
-        run: cat dist/build.env >> "$GITHUB_ENV"
 
       - name: Record release tag
         id: release-tag

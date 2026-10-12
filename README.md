@@ -57,12 +57,13 @@ collection owner and does not recursively change collection ownership.
 ```bash
 go install github.com/goreleaser/nfpm/v2/cmd/nfpm@latest
 # jq and curl are also required to resolve the exact published PyPI wheel
-ARCHIVEBOX_VERSION=0.9.35rc175 ./bin/build_deb.sh
+./bin/build_deb.sh  # latest stable PyPI release
 sudo apt install ./dist/archivebox_*.deb
 ```
 
-`ARCHIVEBOX_VERSION` is the only ArchiveBox release input. The build resolves
-that version's unique wheel URL and SHA-256 from PyPI, stores them in
+`ARCHIVEBOX_VERSION` optionally selects an exact stable release; omitting it
+selects the latest stable PyPI release. Release candidates are rejected. The build
+resolves that version's unique wheel URL and SHA-256 from PyPI, stores them in
 `/opt/archivebox/package.env`, and installs that exact wheel; it never clones or
 embeds the ArchiveBox source tree.
 
