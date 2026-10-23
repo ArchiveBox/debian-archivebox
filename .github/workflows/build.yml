@@ -176,7 +176,7 @@ jobs:
       - uses: actions/setup-node@v5
         if: github.ref == 'refs/heads/main' && !contains(inputs.archivebox_version, 'rc')
         with:
-          node-version: 22
+          node-version: 24.22.1
       - name: Publish GitHub release
         if: github.ref == 'refs/heads/main' && !contains(inputs.archivebox_version, 'rc')
         env:
